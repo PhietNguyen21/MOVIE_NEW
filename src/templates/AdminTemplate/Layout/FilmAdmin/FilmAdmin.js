@@ -97,32 +97,34 @@ const FilmAdmin = () => {
       title: "Action",
       render: (value, film, index) => {
         return (
-          <Fragment className="flex" key={index}>
-            <button
-              onClick={() => {
-                navigate(`/admin/${film.maPhim}`);
-              }}
-              className="btn btn-primary "
-            >
-              EDIT
-            </button>
-            <button
-              onClick={() => {
-                navigate(`/admin/delete/${film.maPhim}`);
-              }}
-              className="btn btn-danger mx-2"
-            >
-              DELETE
-            </button>
-            <butto
-              className="btn btn-success"
-              onClick={() => {
-                navigate(`/admin/showtime/${film.maPhim}/${film.tenPhim}`);
-                localStorage.setItem("FilmParam", JSON.stringify(film));
-              }}
-            >
-              Add Show Time
-            </butto>
+          <Fragment key={index}>
+            <div className="flex">
+              <button
+                onClick={() => {
+                  navigate(`/admin/${film.maPhim}`);
+                }}
+                className="btn btn-primary "
+              >
+                EDIT
+              </button>
+              <button
+                onClick={() => {
+                  navigate(`/admin/delete/${film.maPhim}`);
+                }}
+                className="btn btn-danger mx-2"
+              >
+                DELETE
+              </button>
+              <button
+                className="btn btn-success"
+                onClick={() => {
+                  navigate(`/admin/showtime/${film.maPhim}/${film.tenPhim}`);
+                  localStorage.setItem("FilmParam", JSON.stringify(film));
+                }}
+              >
+                Add Show Time
+              </button>
+            </div>
           </Fragment>
         );
       },

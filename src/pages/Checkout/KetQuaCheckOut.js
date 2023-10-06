@@ -30,7 +30,7 @@ const KetQuaCheckOut = () => {
     return _.head(arr);
   };
 
-  console.log(thongTinNguoiDung);
+  // console.log(thongTinNguoiDung);
   // LƯU THÔNG TIN ĐẶT VÉ
 
   const userLogin = useSelector((state) => state.AuthReducer.user);
@@ -49,7 +49,7 @@ const KetQuaCheckOut = () => {
   // console.log("USER", userLogin);
 
   const { thongTinPhim, danhSachGhe } = heThongPhongVe;
-  console.log("HE THONG PHONG VE", heThongPhongVe);
+  // console.log("HE THONG PHONG VE", heThongPhongVe);
 
   const cusTomer = (
     <>

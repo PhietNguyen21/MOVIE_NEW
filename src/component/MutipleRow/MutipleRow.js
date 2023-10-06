@@ -100,7 +100,7 @@ const MultipleRows = (props) => {
       return {
         value: film.maPhim,
         label: (
-          <div className="w-36 mr-2">
+          <div key={index} className="w-36 mr-2">
             {film.tenPhim.length > 20
               ? film.tenPhim.slice(0, 20) + " ..."
               : film.tenPhim}
@@ -111,6 +111,7 @@ const MultipleRows = (props) => {
             value: film.tenPhim,
             label: (
               <img
+                key={`img-${index}`}
                 style={{ width: 150, height: 150 }}
                 src={film.hinhAnh}
                 alt=""

@@ -13,6 +13,7 @@ const stateDefault = {
   thongTinDatve: {},
   thongTinNguoiDung: {},
   danhSachVeKHDangDat: [{ maGhe: 48857 }, { maGhe: 48858 }],
+  countThanhToan: 0,
 };
 export const BookingTicketReducer = (state = stateDefault, action) => {
   switch (action.type) {
@@ -32,8 +33,10 @@ export const BookingTicketReducer = (state = stateDefault, action) => {
       return { ...state, danhSachVeDangDat: danhSachGheCapNhat };
     }
     case DAT_VE: {
-      // console.log(action);
-      return { ...state, thongTinDatve: action.thongTinDatve };
+      return {
+        ...state,
+        thongTinDatve: action.thongTinDatve,
+      };
     }
     case THONG_TIN_DAT_VE: {
       return { ...state, thongTinNguoiDung: action.data };

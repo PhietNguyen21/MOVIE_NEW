@@ -1,8 +1,13 @@
 import { GP00 } from "../types/configType";
 import axios from "../util/axiosCustomize";
-export const getListCinema = () => {
+export const getListCinema = (maHeThongRap = "") => {
+  if (maHeThongRap === "") {
+    return axios.get(
+      `https://movieapi.cyberlearn.vn/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=${GP00}`
+    );
+  }
   return axios.get(
-    `https://movieapi.cyberlearn.vn/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=${GP00}`
+    `https://movieapi.cyberlearn.vn/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maHeThongRap=${maHeThongRap}&maNhom=GP00`
   );
 };
 

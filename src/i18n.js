@@ -20,7 +20,7 @@ i18n
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
-    fallbackLng: "chi",
+    fallbackLng: "vi",
     debug: true,
     whitelist: ["chi", "en", "vn"], //Liet ke ngon ngu
     interpolation: {

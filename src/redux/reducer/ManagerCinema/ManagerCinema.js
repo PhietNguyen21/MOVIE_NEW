@@ -2,6 +2,7 @@ import { GET_THONG_TIN_PHIM } from "../../../types/configType";
 import {
   GET_LICH_CHIEU,
   GET_LIST_CINEMA,
+  GET_MA_LICH_CHIEU,
 } from "../../actions/types/CinemaType";
 
 const stateDefault = {
