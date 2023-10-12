@@ -21,6 +21,7 @@ import {
 import { list } from "postcss";
 import { GET_LICH_CHIEU } from "../../redux/actions/types/CinemaType";
 import { useFormik } from "formik";
+import "./MuitipleRow.scss";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -77,21 +78,70 @@ const MultipleRows = (props) => {
   // DAT STATE CUMRAP
 
   const settings = {
-    className: "center slider  ",
-
-    // centerMode: true,
+    className: "center slider",
     infinite: true,
     centerPadding: "60px",
-
-    slidesToShow: 4,
-    speed: 500,
+    slidesToShow: 4, // Initial setting
+    slidesToScroll: 4, // Initial setting (should match slidesToShow)
     rows: 2,
+    speed: 500,
     dots: false,
-    slidesPerRow: 1,
     variableWidth: true,
+    initialSlide: 0,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1300,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3, // Adjust this to match slidesToShow
+          infinite: true,
+          dots: false,
+          rows: 2,
+        },
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2, // Adjust this to match slidesToShow
+          infinite: true,
+          dots: false,
+          rows: 2,
+        },
+      },
+      {
+        breakpoint: 797,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1, // Adjust this to match slidesToShow
+          infinite: true,
+          dots: false,
+          rows: 2,
+        },
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1, // Adjust this to match slidesToShow
+          infinite: true,
+          dots: false,
+          rows: 2,
+          centerPadding: "60px",
+        },
+      },
+      // {
+      //   breakpoint: 290,
+      //   settings: {
+      //     nextArrow: <></>,
+      //     prevArrow: <></>,
+      //   },
+      // },
+    ],
   };
+
   const activeClassDC = dangChieu ? "active-btn" : "none-active-btn";
   const activeClassSC = sapChieu ? "active-btn" : "none-active-btn";
 
@@ -235,23 +285,28 @@ const MultipleRows = (props) => {
   };
   return (
     <>
-      <div className="flex justify-center mb-4">
+      <div
+        className={`${styleContent["listFormControl"]} flex justify-start items-start mb-4`}
+      >
         <Cascader
-          defaultValue={<>Chose Film</>}
+          style={{ borderRight: "2px solid gray", width: "25%" }}
+          bordered={false}
           allowClear={false}
           options={conversListFilm()}
           expandTrigger="hover"
-          // displayRender={displayRender}
           onChange={onChangeFilm}
+          placeholder="Chọn Phim"
         />
 
         <Select
+          bordered={false}
           onChange={onChangeHeThongRap}
-          defaultValue={<>Chose he thong rap</>}
+          placeholder="Chọn hệ thống rạp"
           ref={refHtr}
           style={{
+            borderRight: "2px solid gray",
             margin: "0 20px",
-            width: 200,
+            width: "15%",
           }}
           // value={}
           options={reverseHeThongRap()}
@@ -259,12 +314,14 @@ const MultipleRows = (props) => {
         />
 
         <Select
+          placeholder="Chọn cụm rạp"
+          bordered={false}
           onChange={onChangeCumRap}
-          defaultValue={<>Chose Cum Rap</>}
           ref={refCumRap}
           style={{
+            borderRight: "2px solid gray",
             margin: "0 20px",
-            width: 200,
+            width: "15%",
           }}
           // value={}
           options={reverseCumRap()}
@@ -272,12 +329,14 @@ const MultipleRows = (props) => {
         />
 
         <Select
+          bordered={false}
           onChange={onchangeLichChieu}
-          defaultValue={<>Chose Lich Chieu</>}
+          placeholder="Chọn lịch chiếu"
           ref={refLich}
           style={{
+            borderRight: "2px solid gray",
             margin: "0 20px",
-            width: 200,
+            width: "15%",
           }}
           // value={}
           options={reverseLichChieu()}
@@ -286,31 +345,37 @@ const MultipleRows = (props) => {
 
         <Select
           onChange={onchangeSuatChieu}
-          defaultValue={<>Chose Suat Chieu</>}
+          bordered={false}
+          placeholder="Chọn suất chiếu"
           ref={refSuatChieu}
           style={{
+            borderRight: "2px solid gray",
             margin: "0 20px",
-            width: 200,
+            width: "15%",
           }}
           // value={}
           options={[reverseSuatChieu()]}
           optionLabelProp="label"
         />
-        <button
-          onClick={() => {
-            nagivate(`/checkout/${lichCurrent?.maLichChieu}`);
-          }}
-          disabled={suatChieuCurrent === "" ? true : false}
-          className={`${styleContent["btn-muaVe"]} ${styleContent["btn-muaVes"]}
-            `}
-        >
-          Mua vé ngay
-        </button>
       </div>
-      <div className="listBtn text-center">
+      <button
+        onClick={() => {
+          nagivate(`/checkout/${lichCurrent?.maLichChieu}`);
+        }}
+        style={{ width: "15%" }}
+        disabled={suatChieuCurrent === "" ? true : false}
+        className={`${styleContent["btn-muaVe"]} ${styleContent["btn-muaVes"]}
+            `}
+      >
+        Mua vé ngay
+      </button>
+      <div
+        className="listBtn text-center "
+        style={{ transform: `translateY(-50%)` }}
+      >
         <button
           type="button"
-          className={`px-8 mr-2 py-3 font-semibold border rounded ${styleContent[activeClassDC]}`}
+          className={`btn-dangChieu px-8 mr-2 py-3 font-semibold border rounded ${styleContent[activeClassDC]}`}
           onClick={() => {
             dispatch({
               type: FILM_DANG_CHIEU,
@@ -322,7 +387,7 @@ const MultipleRows = (props) => {
 
         <button
           type="button"
-          className={`px-8 py-3 font-semibold border rounded ${styleContent[activeClassSC]}`}
+          className={`btn-sapChieu px-8 py-3 font-semibold border rounded ${styleContent[activeClassSC]}`}
           onClick={() => {
             dispatch({
               type: FILM_SAP_CHIEU,

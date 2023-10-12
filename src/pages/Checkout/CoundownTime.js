@@ -28,9 +28,11 @@ function CountdownTime({ param }) {
     <>
       <div
         style={{ width: "60%" }}
-        className="flex items-center text-3xl justify-start text-red-500 font-semibold ml-3"
+        className="flex items-center text-2xl  md:text-3xl justify-start text-red-500 font-semibold ml-3"
       >
-        <p className="text-white text-2xl mr-3">Thời gian giữ chỗ </p>
+        <p className="text-white text-xl md:text-2xl mr-3">
+          Thời gian giữ chỗ{" "}
+        </p>
         <p>0{Math.floor(time / 60)}: </p>
         <p>{second >= 10 ? second : `0${second}`}</p>
         {/* <button onClick={() => setTimerOn(true)}>Start</button>

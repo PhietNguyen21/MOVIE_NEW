@@ -119,7 +119,7 @@ const Checkout = () => {
                 <>
                   {/* CHECKOUt */}
                   <div className="Checkout w-screen">
-                    <div className="flex justify-start">
+                    <div className="checkout-header flex justify-start">
                       <CountdownTime param={param.id} />
                       {cusTomer}
                     </div>
@@ -182,7 +182,9 @@ const Checkout = () => {
                                       ghe.stt
                                     )}
                                   </button>
-                                  {(index + 1) % 16 === 0 ? <br /> : ""}
+                                  <span className="hidden lg:inline">
+                                    {(index + 1) % 16 === 0 ? <br /> : ""}
+                                  </span>
                                 </Fragment>
                               );
                             })}
@@ -282,7 +284,6 @@ const Checkout = () => {
                               <th>Ghế đang đặt</th>
                               <th>Ghế đã đươc đặt</th>
                               <th>Ghế bạn đặt</th>
-                              <th>Ghế người khác đang đặt</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -309,11 +310,6 @@ const Checkout = () => {
                               </td>
                               <td>
                                 <p className="seatTable gheMinhDat flex items-center justify-center">
-                                  <CheckOutlined />
-                                </p>
-                              </td>
-                              <td>
-                                <p className="seatTable gheKH flex items-center justify-center">
                                   <CheckOutlined />
                                 </p>
                               </td>

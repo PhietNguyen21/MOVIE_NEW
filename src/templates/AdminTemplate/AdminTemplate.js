@@ -147,7 +147,13 @@ const App = () => {
         </div>
       </div>
       <Layout>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
+        <Sider
+          collapsedWidth="0"
+          breakpoint="sm"
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+        >
           <Menu
             theme="dark"
             mode="inline"

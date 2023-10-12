@@ -22,7 +22,7 @@
     height: 5px;
 }
 .slick-dots {
-    bottom: 45px;
+    bottom: 58px;
 }
 
 .slick-dots li {
@@ -39,4 +39,28 @@
 .slick-dots li.slick-active button {
     background-color: yellow;
     opacity: 1;
+}
+
+@media screen and (max-width: 1024px) {
+    .homeCarousel {
+        padding-top: 100px !important;
+        .divImg {
+            img {
+                height: 250px !important;
+            }
+        }
+
+        .slick-dots {
+            bottom: 40px;
+            li {
+                width: 30px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .homeCarousel {
+        padding-top: 76px !important;
+    }
 }

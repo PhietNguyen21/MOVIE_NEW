@@ -21,12 +21,15 @@ const Home = () => {
       <HomeCarousel />
       <div className="container">
         <section className="text-gray-600 body-font list-Film">
-          <div className="container px-5 py-8 mx-auto">
+          <div
+            className="lstMutiple container px-5 py-8 mx-auto"
+            style={{ position: "relative" }}
+          >
             <MultipleRows listFilm={listFilm} />
           </div>
         </section>
 
-        <div className="mx-36">
+        <div className="lg:mx-36 m-0">
           <HomeMenu heThongRapChieu={heThongRapChieu} />
         </div>
       </div>

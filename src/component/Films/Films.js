@@ -36,7 +36,7 @@ const Films = (props) => {
       className="card"
       style={{
         width: "18rem",
-        marginTop: 20,
+        marginTop: 10,
         boxShadow: `rgb(38, 57, 77) 0px 20px 30px -10px`,
       }}
     >
@@ -67,7 +67,7 @@ const Films = (props) => {
       <div className="card-body">
         <h5 className="card-title text-center font-bold h-8">{film.tenPhim}</h5>
 
-        <p className="card-text">
+        <p className="card-text text-center">
           {film.moTa.length > 0 ? `${film.moTa.slice(0, 100)} ...` : film.moTa}
         </p>
 

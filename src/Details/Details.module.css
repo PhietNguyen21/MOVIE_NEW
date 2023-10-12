@@ -58,3 +58,9 @@
     color: rgba(0, 0, 0, 0.65);
     transform: translateY(0);
 }
+
+@media screen and (max-width: 1024px) {
+    .item-hour {
+        padding: 0 10px !important;
+    }
+}

@@ -9,6 +9,7 @@ import { DIS_LOADING, LOADING } from "../../redux/actions/types/LoadingType";
 import { Tabs } from "antd";
 import CountdownTime from "./CoundownTime";
 import Profile from "../../templates/HomeTemplate/Layout/Profile/Profile";
+import InfiniteScroll from "react-infinite-scroll-component";
 // const count = 1;
 const KetQuaCheckOut = () => {
   const dispatch = useDispatch();
@@ -65,6 +66,25 @@ const KetQuaCheckOut = () => {
 
   return (
     <>
+      <div
+        className="header_checkout py-2 flex justify-between items-center text-white pt-2"
+        style={{ backgroundColor: "#242333" }}
+      >
+        <div
+          className="backHome"
+          style={{ width: 160, height: 60, cursor: "pointer" }}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <img
+            className="object-cover ml-2"
+            src="/image/logoTixLoading.png"
+            alt=""
+            style={{ width: 80, height: 60 }}
+          />
+        </div>
+      </div>
       <Tabs
         tabBarExtraContent={cusTomer}
         className="antsCheckout"
@@ -111,76 +131,93 @@ const KetQuaCheckOut = () => {
                       </div>
                       {thongTinNguoiDung?.thongTinDatVe?.length > 0 ? (
                         <>
-                          <div className="flex flex-wrap -m-2">
-                            {thongTinNguoiDung.thongTinDatVe?.map(
-                              (ticket, index) => {
-                                return (
-                                  <div
-                                    key={index}
-                                    className="p-2 lg:w-1/3 md:w-1/2 w-full"
-                                  >
-                                    <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
-                                      <img
-                                        alt="team"
-                                        className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-                                        src={ticket.hinhAnh}
-                                      />
-                                      <div className="flex-grow">
-                                        <h2 className="text-white title-font font-medium">
-                                          {ticket.tenPhim}
-                                        </h2>
-                                        <p className="ngayGio text-white font-bold">
-                                          Giờ chiếu :{" "}
-                                          {moment(ticket.ngayDat).format(
-                                            "hh:mm A"
-                                          )}
-                                          {" | "}
-                                          Ngày chiếu :{" "}
-                                          {moment(ticket.ngayDat).format(
-                                            "DD-MM-YYYY"
-                                          )}
-                                        </p>
-                                        <p className="text-white font-semibold">
-                                          Địa điểm :{" "}
-                                          {
-                                            ticketFirst(ticket.danhSachGhe)
-                                              .tenHeThongRap
-                                          }
-                                        </p>
-                                        <p className="text-white font-semibold">
-                                          Rạp :{" "}
-                                          {
-                                            ticketFirst(ticket.danhSachGhe)
-                                              .tenRap
-                                          }
-                                        </p>
-                                        <p className="font-semibold text-white">
-                                          {" "}
-                                          Ghế :{" "}
-                                        </p>{" "}
-                                        {ticket.danhSachGhe.map(
-                                          (ghe, index) => {
-                                            return (
-                                              <span
-                                                key={index}
-                                                className="mr-2 text-green-500 font-semibold"
-                                              >
-                                                {"["} {ghe.tenGhe} {"]"}
-                                                {(index + 1) % 5 === 0 ? (
-                                                  <br />
-                                                ) : (
-                                                  ""
-                                                )}
-                                              </span>
-                                            );
-                                          }
-                                        )}
-                                      </div>
-                                    </div>
-                                  </div>
-                                );
+                          <div
+                            className="div-infoVe "
+                            style={{ height: "100vh" }}
+                          >
+                            <InfiniteScroll
+                              dataLength={
+                                thongTinNguoiDung?.thongTinDatVe?.length
                               }
-                            )}
+                              hasMore={true}
+                              style={{
+                                height: "600px",
+                                width: "100%",
+                                overflowX: "hidden",
+                              }}
+                            >
+                              <div className="flex flex-wrap -m-2">
+                                {thongTinNguoiDung.thongTinDatVe?.map(
+                                  (ticket, index) => {
+                                    return (
+                                      <div
+                                        key={index}
+                                        className="p-2 lg:w-1/3 md:w-1/2 w-full"
+                                      >
+                                        <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+                                          <img
+                                            alt="team"
+                                            className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                                            src={ticket.hinhAnh}
+                                          />
+                                          <div className="flex-grow">
+                                            <h2 className="text-white title-font font-medium">
+                                              {ticket.tenPhim}
+                                            </h2>
+                                            <p className="ngayGio text-white font-bold">
+                                              Giờ chiếu :{" "}
+                                              {moment(ticket.ngayDat).format(
+                                                "hh:mm A"
+                                              )}
+                                              {" | "}
+                                              Ngày chiếu :{" "}
+                                              {moment(ticket.ngayDat).format(
+                                                "DD-MM-YYYY"
+                                              )}
+                                            </p>
+                                            <p className="text-white font-semibold">
+                                              Địa điểm :{" "}
+                                              {
+                                                ticketFirst(ticket.danhSachGhe)
+                                                  .tenHeThongRap
+                                              }
+                                            </p>
+                                            <p className="text-white font-semibold">
+                                              Rạp :{" "}
+                                              {
+                                                ticketFirst(ticket.danhSachGhe)
+                                                  .tenRap
+                                              }
+                                            </p>
+                                            <p className="font-semibold text-white">
+                                              {" "}
+                                              Ghế :{" "}
+                                            </p>{" "}
+                                            {ticket.danhSachGhe.map(
+                                              (ghe, index) => {
+                                                return (
+                                                  <span
+                                                    key={index}
+                                                    className="mr-2 text-green-500 font-semibold"
+                                                  >
+                                                    {"["} {ghe.tenGhe} {"]"}
+                                                    {(index + 1) % 5 === 0 ? (
+                                                      <br />
+                                                    ) : (
+                                                      ""
+                                                    )}
+                                                  </span>
+                                                );
+                                              }
+                                            )}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    );
+                                  }
+                                )}
+                              </div>
+                            </InfiniteScroll>
                           </div>
                         </>
                       ) : (

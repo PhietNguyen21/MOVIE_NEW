@@ -26,10 +26,16 @@
 
 /* CSS */
 .btn-muaVe {
-    margin-left: 20px;
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+
     background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
     border: 0;
-    height: 32px;
+    border-radius: 8px;
+    height: 46px;
+
     /* border-radius: 12px; */
     color: #ffffff;
     cursor: pointer;
@@ -39,7 +45,7 @@
     font-weight: 500;
     line-height: 30px;
     outline: transparent;
-    padding: 0 1rem;
+    padding: 0rem 1rem;
     text-align: center;
     text-decoration: none;
     transition: box-shadow 0.2s ease-in-out;
@@ -65,4 +71,29 @@
 
 .btn-muaVes {
     cursor: no-drop;
+}
+
+.listFormControl {
+    width: 100%;
+    bottom: 0;
+    height: 83px;
+    margin: auto;
+    transform: translateY(-100%);
+    max-width: 940px;
+    padding: 0 20px;
+    padding-top: 25px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+    align-items: center;
+    border-radius: 5px;
+
+    background-color: #fff;
+}
+
+@media screen and (max-width: 1024px) {
+    .listFormControl {
+        display: none !important;
+    }
+    .btn-muaVe {
+        display: none !important;
+    }
 }

@@ -1,5 +1,5 @@
 import { Login } from "iconsax-react";
-import { GP00, USER_LOGIN } from "../../../types/configType";
+import { GP00, USER_LOGIN, USER_REGISTER } from "../../../types/configType";
 import {
   CAP_NHAT_THANH_CONG,
   DANG_NHAP_THANH_CONG,
@@ -43,13 +43,17 @@ export const AuthReducer = (state = stateDefault, action) => {
         ...state,
         soDT: action.dataUser.soDt,
       };
+
     case DANG_NHAP_THANH_CONG:
+      // console.log(state.soDT);
+
       localStorage.setItem(USER_LOGIN, JSON.stringify(action.userLogin));
+
       localStorage.setItem(
         "accessToken",
         JSON.stringify(action.userLogin.accessToken)
       );
-      console.log(state.accessToken);
+
       return {
         ...state,
         user: action.userLogin,

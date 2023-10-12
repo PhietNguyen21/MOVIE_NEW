@@ -17,7 +17,7 @@ const Register = () => {
     matKhau: "",
     soDt: "",
     maNhom: "GP00",
-    hoTen: "string",
+    hoTen: "",
   });
   const dispatch = useDispatch();
   const nagivate = useNavigate();
@@ -38,7 +38,7 @@ const Register = () => {
         taiKhoan: edit.taiKhoan,
         email: edit.email,
         matKhau: edit.matKhau,
-        soDt: edit.soDt,
+        soDt: parseInt(edit.soDt),
         maNhom: edit.maNhom,
         hoTen: edit.hoTen,
       }
@@ -173,6 +173,24 @@ const Register = () => {
                   onChange={handleChange}
                 />
               </div>
+
+              <div className="mt-6">
+                <div className="flex justify-between items-center">
+                  <div className="text-sm font-bold text-gray-700 tracking-wide">
+                    Họ và tên
+                  </div>
+                </div>
+                <input
+                  className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                  type="text"
+                  placeholder="Nhập vào Ho va ten"
+                  required
+                  name="hoTen"
+                  value={edit.hoTen}
+                  onChange={handleChange}
+                />
+              </div>
+
               <div className="mt-10">
                 <button
                   onClick={onRegister}

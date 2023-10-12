@@ -91,28 +91,6 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import "./HomeCarousel.scss";
 const HomeCarousel = () => {
-  function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", background: "red" }}
-        onClick={onClick}
-      />
-    );
-  }
-
-  function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", background: "green" }}
-        onClick={onClick}
-      />
-    );
-  }
-
   const settings = {
     dots: true,
     infinite: true,
@@ -122,17 +100,25 @@ const HomeCarousel = () => {
     autoplaySpeed: 2000,
     pauseOnHover: true,
   };
+
+  // const styleBG={
+
+  // }
   const renderIMG = () => {
     const arr = [1, 2, 3];
 
     return arr.map((_, index) => {
       // console.log(index);
       return (
-        <div key={index}>
+        <div key={index} className="divImg">
           <img
             src={`./image/imgLotte${index + 1}.jpg`}
             className="w-full"
-            style={{ height: "450px" }}
+            style={{
+              height: "450px",
+              width: "100%",
+              objectFit: "cover",
+            }}
             alt=""
           />
         </div>
@@ -140,7 +126,7 @@ const HomeCarousel = () => {
     });
   };
   return (
-    <div style={{ paddingTop: "100px" }}>
+    <div className="homeCarousel" style={{ paddingTop: "100px" }}>
       <Slider {...settings}>{renderIMG()}</Slider>
     </div>
   );

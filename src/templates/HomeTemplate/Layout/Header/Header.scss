@@ -1,9 +1,172 @@
-header {
-    .items-stretch {
-        align-items: stretch;
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: black;
+    z-index: 10;
+    // transition: all 0.5s;
+    .header-content {
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0;
+        display: flex;
+        .listNav {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            .item-nav {
+                color: violet;
+                font-size: 16px;
+                margin: 0 10px;
+                margin-bottom: 20px;
+
+                a {
+                    display: inline;
+                    padding: 10px 6px;
+
+                    text-decoration: none;
+                }
+                &:hover {
+                    a {
+                        color: white;
+                    }
+                }
+            }
+            .item-nav.active {
+                a {
+                    border-bottom: 2px solid white;
+
+                    color: white;
+                }
+            }
+        }
+        .header-right {
+            margin-right: 40px;
+            color: white;
+            display: flex;
+            align-items: center;
+            svg {
+                margin-left: 4px;
+            }
+        }
+
+        .bar {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            // justify-content: space-around;
+            span {
+                transition: all 0.5s;
+                display: inline-block;
+                margin-right: 10px;
+                margin-bottom: 4px;
+                width: 33px;
+                height: 3px;
+                background-color: red;
+                border-radius: 4px;
+                position: relative;
+                cursor: pointer;
+            }
+        }
+    }
+    .divNavList {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .header {
+        .header-content {
+            .logo {
+                width: fit-content;
+            }
+            .header-right {
+                display: none;
+            }
+            .listNav {
+                display: none;
+            }
+
+            .bar {
+                display: flex;
+                cursor: pointer;
+                margin-right: 10px;
+                transition: all 1s;
+            }
+            .bar.active {
+                .item-bar-2 {
+                    display: none;
+                }
+                .item-bar-1 {
+                    transition: all 0.5s;
+                    transform: rotate(45deg) translate(2px, 4px);
+                }
+                .item-bar-3 {
+                    transition: all 0.5s;
+                    transform: rotate(-45deg) translate(2px, -3px);
+                }
+            }
+        }
+    }
+    .hamBerGer {
+        position: fixed;
+        z-index: 10;
+        top: 3.5%;
+        right: 0;
+        margin-right: 10px;
+    }
+    .item-hamber {
+        padding: 10px 0;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+            color: #fb4226;
+        }
+    }
+    .icon-close {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        right: 5%;
+
+        font-size: 16px;
+        z-index: 11;
+        color: #fb4226;
+        top: 7%;
+        cursor: pointer;
+        svg {
+            border-radius: 100%;
+        }
+
+        // .item-icon {
+        //     background-color:;
+        // }
+    }
+    .ant-drawer-body {
+        padding: 0 !important;
+    }
+    .renderCustomer {
+        svg {
+            display: none;
+        }
+    }
+}
+.headerScroll {
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 600px) {
+    .header {
+        .header-content {
+            .logo {
+                img {
+                    width: 50px !important;
+                    height: 48px !important;
+                }
+            }
+        }
+    }
+    .hamBerGer {
+        top: 3.5% !important;
     }
 }

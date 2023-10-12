@@ -4,11 +4,16 @@ import Header from "./Layout/Header/Header";
 
 import Footer from "../HomeTemplate/Layout/Footer/Footer";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const HomeTemplate = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
+  // const { isLoading } = useSelector((state) => state.LoadingReducer);
+  // console.log(isLoading);
+  // const loading = isLoading;
+
   return (
     <>
       <Header />

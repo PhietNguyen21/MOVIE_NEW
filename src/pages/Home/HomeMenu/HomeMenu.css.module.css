@@ -55,3 +55,59 @@
     color: rgba(0, 0, 0, 0.65);
     transform: translateY(0);
 }
+
+/* Define the custom scrollbar style */
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: red #f0f0f0;
+}
+
+/* Style the track */
+.custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+}
+
+/* Style the scrollbar thumb */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #999;
+    border-radius: 6px;
+}
+
+/* Style the scrollbar thumb when hovered */
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+}
+
+@media screen and (max-width: 1024px) {
+    .film-content {
+        display: block !important;
+        text-align: center;
+    }
+    .img-res {
+        width: 100% !important;
+    }
+    .img {
+        text-align: center;
+    }
+    .textHour {
+        font-size: 0.7rem !important;
+    }
+    .film-content .lstHour:nth-last-child() {
+        border: none !important;
+    }
+    .item-hour {
+        padding: 0 !important;
+    }
+}
+
+@media screen and (max-width: 797px) {
+    .img-res {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .item-hour {
+        padding: 0 !important;
+    }
+}

@@ -10,7 +10,7 @@ import {
 
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-const Profile = () => {
+const Profile = ({ onClose }) => {
   const userLogin = useSelector((state) => state.AuthReducer.user);
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -34,11 +34,10 @@ const Profile = () => {
       label: (
         <p
           onClick={async () => {
+            navigate("/");
             await dispatch({
               type: DANG_XUAT,
             });
-
-            navigate("/");
           }}
         >
           {t("Dangxuat")}
@@ -49,7 +48,7 @@ const Profile = () => {
   return (
     <div className="profile flex items-center mr-2">
       <div
-        className="avatart rounded-full "
+        className="cursor-pointer avatart rounded-full "
         style={{
           position: "relative",
           backgroundColor: "green",
@@ -59,6 +58,10 @@ const Profile = () => {
         }}
       >
         <span
+          onClick={() => {
+            navigate("/taiKhoan");
+            onClose();
+          }}
           className="font-bold"
           style={{
             position: "absolute",

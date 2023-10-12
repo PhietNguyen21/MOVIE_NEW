@@ -17,6 +17,7 @@ import data from "../assets/dataRate.json";
 
 import { Spin } from "antd";
 import { UP_COMMENT } from "../redux/actions/types/AuthType";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Details = () => {
   const [loading, setLoading] = useState(true);
@@ -91,11 +92,6 @@ const Details = () => {
   useEffect(() => {
     const hiddenDiv = ref.current;
     // console.log(hiddenDiv.style);
-
-    hiddenDiv.style.setProperty(
-      "--before-background",
-      `url(${filmDetail.hinhAnh})`
-    );
   }, [filmDetail]);
 
   // LOADING
@@ -111,49 +107,51 @@ const Details = () => {
 
   return (
     <>
-      <div className="movie-card">
-        <div className="img-movie">
-          <a href="/">
-            <img src={filmDetail.hinhAnh} alt="cover" className="cover w-32" />
-          </a>
-          <div className="hero" ref={ref}>
-            <div className="details">
-              <div className="title1">
-                {filmDetail.tenPhim} <span>PG-18</span>
-              </div>
-              <div className="title2">
+      <div
+        className="Card_MV"
+        style={{
+          transform: "translateY(-10px)",
+          background: `url(${filmDetail.hinhAnh})`,
+          height: "800px",
+          backgroundPosition: "100% 100%",
+          backgroundSize: "cover",
+        }}
+      ></div>
+      <div className="movie_card" id="ave">
+        <div className="info_section">
+          <div className="flex justify-between items-center">
+            <div className="movie_header">
+              <img className="locandina" src={filmDetail.hinhAnh} alt="" />
+              <h1>{filmDetail.tenPhim}</h1>
+              <h4>
+                {" "}
                 Ngày chiếu :{" "}
                 {moment(filmDetail.ngayKhoiChieu).format("DD.MM.YYYY")}
-              </div>
-              <fieldset className="rating">
-                <Rate allowHalf value={filmDetail.danhGia / 2} />
-              </fieldset>
-              <span className="likes">{filmDetail.maPhim} likes</span>
-            </div>{" "}
-            {/* end details */}
-          </div>{" "}
-          {/* end hero */}
-          <div className="description">
-            <div className="column1">
-              <span className="tag">action</span>
-              <span className="tag">fantasy</span>
-              <span className="tag">adventure</span>
-            </div>{" "}
-            {/* end column1 */}
-            <div className="column2">
-              <p>
-                {filmDetail?.moTa?.slice(0, 400)}... <a href="#">read more</a>
+              </h4>
+              <span className="minutes">134 min</span>
+              <p className="type">Action, Adventure, Sci-Fi</p>
+            </div>
+            <div className="rating md:mr-4 hidden lg:block">
+              <p className="text-white text-center font-semibold titleRate">
+                Đánh giá
               </p>
-
-              {/* end avatars */}
-            </div>{" "}
-            {/* end column2 */}
-          </div>{" "}
-          {/* end description */}
-        </div>{" "}
+              <Rate allowHalf value={filmDetail.danhGia / 2} />
+            </div>
+          </div>
+          <div className="movie_desc">
+            <p className="text">
+              {filmDetail?.moTa?.slice(0, 200)}... <a href="#">read more</a>s
+            </p>
+          </div>
+        </div>
+        <div
+          className="blur_back ave_back"
+          style={{ background: `url(${filmDetail.hinhAnh})` }}
+        ></div>
       </div>
 
       <Tabs
+        style={{ paddingTop: 75 }}
         tabPosition={"top"}
         centered={true}
         items={arrTab.map((item, i) => {
@@ -183,54 +181,63 @@ const Details = () => {
                           key: id,
                           children: (
                             <>
-                              {item.cumRapChieu?.map((rap, index) => {
-                                // console.log("RAP", rap);
-                                return (
-                                  <div key={index}>
-                                    <div className="lichChieu d-flex flex-row items-center ">
-                                      <div className="img mt-3">
-                                        <img
-                                          style={{
-                                            width: "60px",
-                                            height: "60px",
-                                          }}
-                                          src={rap.hinhAnh}
-                                          alt=""
-                                        />
+                              <InfiniteScroll
+                                className="sm:px-2"
+                                style={{ height: "300px" }}
+                                // hasMore={true}
+                                dataLength={item.cumRapChieu.length}
+                              >
+                                {item.cumRapChieu?.map((rap, index) => {
+                                  // console.log("RAP", rap);
+                                  return (
+                                    <div key={index}>
+                                      <div className="lichChieu d-flex flex-row items-center ">
+                                        <div className="img mt-3">
+                                          <img
+                                            style={{
+                                              width: "60px",
+                                              height: "60px",
+                                            }}
+                                            src={rap.hinhAnh}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div className="info-rap ml-2 mt-2">
+                                          <p className="nameRap text-xl font-semibold">
+                                            {rap.tenCumRap}
+                                          </p>
+                                          <p className="address text-gray-400">
+                                            {rap.diaChi}
+                                          </p>
+                                        </div>
                                       </div>
-                                      <div className="info-rap ml-2 mt-2">
-                                        <p className="nameRap text-xl font-semibold">
-                                          {rap.tenCumRap}
-                                        </p>
-                                        <p className="address text-gray-400">
-                                          {rap.diaChi}
-                                        </p>
-                                      </div>
-                                    </div>
 
-                                    <div className="gioChieu grid gap-4 grid-cols-4 pt-3">
-                                      {rap.lichChieuPhim?.map((lich, index) => {
-                                        // console.log(lich);
-                                        return (
-                                          <div
-                                            className="col-span-1"
-                                            key={index}
-                                          >
-                                            <NavLink
-                                              className={`${contentStyle["item-hour"]}`}
-                                              to={`/checkout/${lich.maLichChieu}`}
-                                            >
-                                              {moment(
-                                                lich.ngayChieuGioChieu
-                                              ).format("HH:MM A")}
-                                            </NavLink>
-                                          </div>
-                                        );
-                                      })}
+                                      <div className="gioChieu grid gap-4 grid-cols-2 md:grid-cols-4 pt-3">
+                                        {rap.lichChieuPhim?.map(
+                                          (lich, index) => {
+                                            // console.log(lich);
+                                            return (
+                                              <div
+                                                className="col-span-1"
+                                                key={index}
+                                              >
+                                                <NavLink
+                                                  className={`${contentStyle["item-hour"]}`}
+                                                  to={`/checkout/${lich.maLichChieu}`}
+                                                >
+                                                  {moment(
+                                                    lich.ngayChieuGioChieu
+                                                  ).format("HH:MM A")}
+                                                </NavLink>
+                                              </div>
+                                            );
+                                          }
+                                        )}
+                                      </div>
                                     </div>
-                                  </div>
-                                );
-                              })}
+                                  );
+                                })}
+                              </InfiniteScroll>
                             </>
                           ),
                         };
@@ -257,7 +264,7 @@ const Details = () => {
                     {moment(filmDetail.ngayChieuGioChieu).format("DD/MM/YYYY")}
                   </div>
                   <div
-                    className="mt-2"
+                    className="mt-2 contentMota"
                     style={{ width: "60%", margin: "auto" }}
                   >
                     {filmDetail.moTa}

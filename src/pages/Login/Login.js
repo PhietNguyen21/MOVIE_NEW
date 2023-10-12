@@ -10,6 +10,7 @@ import { postLoginAction } from "../../redux/actions/AuthAction";
 import { DANG_NHAP_THANH_CONG } from "../../redux/actions/types/AuthType";
 import { toast } from "react-toastify";
 import { postLogin } from "../../services/AuthServices";
+import { DIS_LOADING, LOADING } from "../../redux/actions/types/LoadingType";
 
 const Login = () => {
   const [edit, setEdit] = useState({
@@ -42,7 +43,11 @@ const Login = () => {
         userLogin: res.content,
         login: true,
       });
+
       if (location && location?.state?.isRegister) {
+        dispatch({
+          type: LOADING,
+        });
         navigate(-1);
         navigate(-1);
         if (isLoading === true) {
