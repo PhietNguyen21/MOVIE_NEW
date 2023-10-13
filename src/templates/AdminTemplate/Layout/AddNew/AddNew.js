@@ -20,6 +20,7 @@ import { postThemFilm } from "../../../../services/MangerFilmServices";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { postThemFilmAction } from "../../../../redux/actions/FilmAction";
+import * as Yup from "yup";
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 const normFile = (e) => {
@@ -47,7 +48,27 @@ const AddNew = () => {
       hinhAnh: {},
       maNhom: GP00,
     },
-
+    validationSchema: Yup.object().shape({
+      tenPhim: Yup.string().required("Tên phim là bắt buộc"),
+      trailer: Yup.string().required("Trailer là bắt buộc"),
+      moTa: Yup.string()
+        .required("Mô tả là bắt buộc")
+        .min(100, "Mô tả phải có ít nhất 100 ký tự"),
+      ngayKhoiChieu: Yup.string().required("Ngày khởi chiếu là bắt buộc"),
+      danhGia: Yup.number()
+        .min(1, "Đánh giá phải lớn hơn 0")
+        .max(10, "Đánh giá phải bé hơn 10")
+        .required("Vui lòng chọn đánh giá từ 1-10"),
+      hinhAnh: Yup.mixed()
+        .test("fileFormat", "Hình ảnh không hợp lệ", (value) => {
+          if (!value) {
+            return true; // No file is selected
+          }
+          const supportedFormats = ["image/jpeg", "image/png", "image/gif"];
+          return value && supportedFormats.includes(value.type);
+        })
+        .required("Hình ảnh buộc phải có"),
+    }),
     onSubmit: async (value, { resetForm }) => {
       setLoadingAdd(true);
       console.log(value);
@@ -100,7 +121,7 @@ const AddNew = () => {
   };
 
   return (
-    <>
+    <div>
       <Form
         labelCol={{
           span: 4,
@@ -110,22 +131,53 @@ const AddNew = () => {
         }}
         layout="horizontal"
       >
-        <Form.Item label="Ten Phim">
+        <Form.Item
+          label="Tên Phim"
+          validateStatus={
+            formik.touched.trailer && formik.errors.tenPhim ? "error" : ""
+          }
+          help={
+            formik.touched.trailer && formik.errors.tenPhim
+              ? formik.errors.trailer
+              : ""
+          }
+        >
           <Input
+            onBlur={formik.handleBlur}
             name="tenPhim"
             value={formik.values.tenPhim}
             onChange={formik.handleChange}
           />
         </Form.Item>
-        <Form.Item label="Trailer">
+        <Form.Item
+          label="Trailer"
+          validateStatus={
+            formik.touched.trailer && formik.errors.trailer ? "error" : ""
+          }
+          help={
+            formik.touched.trailer && formik.errors.trailer
+              ? formik.errors.trailer
+              : ""
+          }
+        >
           <Input
+            onBlur={formik.handleBlur}
             name="trailer"
             value={formik.values.trailer}
             onChange={formik.handleChange}
           />
         </Form.Item>
-        <Form.Item label="Mo ta">
+        <Form.Item
+          label="Mô tả"
+          validateStatus={
+            formik.errors.moTa && formik.touched.moTa ? "error" : ""
+          }
+          help={
+            formik.touched.moTa && formik.errors.moTa ? formik.errors.moTa : ""
+          }
+        >
           <TextArea
+            onBlur={formik.handleBlur}
             name="moTa"
             value={formik.values.moTa}
             rows={4}
@@ -133,7 +185,17 @@ const AddNew = () => {
           />
         </Form.Item>
         <Form.Item
-          label="Ngay chieu"
+          validateStatus={
+            formik.errors.ngayKhoiChieu && formik.touched.ngayKhoiChieu
+              ? "error"
+              : ""
+          }
+          help={
+            formik.touched.ngayKhoiChieu && formik.errors.ngayKhoiChieu
+              ? formik.errors.ngayKhoiChieu
+              : ""
+          }
+          label="Ngày chiếu"
           style={{
             cursor: "pointer",
           }}
@@ -149,7 +211,7 @@ const AddNew = () => {
           />
         </Form.Item>
 
-        <Form.Item label="Dang chieu">
+        <Form.Item label="Đang chiếu">
           <Switch
             name="dangChieu"
             checked={formik.values.dangChieu}
@@ -169,7 +231,7 @@ const AddNew = () => {
             }}
           />
         </Form.Item>
-        <Form.Item label="Sap chieu" valuePropName="checked">
+        <Form.Item label="Sắp chiếu" valuePropName="checked">
           <Switch
             checked={formik.values.sapChieu}
             name="sapChieu"
@@ -180,8 +242,19 @@ const AddNew = () => {
           />
         </Form.Item>
 
-        <Form.Item label="So sao">
+        <Form.Item
+          label="Đánh giá"
+          validateStatus={
+            formik.errors.danhGia && formik.touched.danhGia ? "error" : ""
+          }
+          help={
+            formik.errors.danhGia && formik.touched.danhGia
+              ? formik.errors.danhGia
+              : ""
+          }
+        >
           <InputNumber
+            onBlur={formik.handleBlur}
             value={formik.values.danhGia}
             name="danhGia"
             onChange={(value) => {
@@ -192,7 +265,15 @@ const AddNew = () => {
           />
         </Form.Item>
         <Form.Item
-          label="Upload"
+          validateStatus={
+            formik.touched.hinhAnh && formik.errors.hinhAnh ? "error" : ""
+          }
+          help={
+            formik.touched.hinhAnh && formik.errors.hinhAnh
+              ? formik.errors.hinhAnh
+              : ""
+          }
+          label="Hình Ảnh"
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
@@ -242,7 +323,7 @@ const AddNew = () => {
           )}
         </Form.Item>
       </Form>
-    </>
+    </div>
   );
 };
 export default AddNew;

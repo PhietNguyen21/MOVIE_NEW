@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Table } from "antd";
+import { Button, Pagination, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
@@ -7,17 +7,26 @@ import {
   getTimKiemNguoiDungAction,
 } from "../../../../../redux/actions/AuthAction";
 import { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { USER_CURRENT } from "../../../../../redux/actions/types/AuthType";
 import Search from "antd/lib/input/Search";
 import { SearchOutlined } from "@ant-design/icons";
+import { useState } from "react";
 const ListUser = () => {
   const { lstUser } = useSelector((state) => state.AuthReducer);
+  //Phân trang hiện tại
+  const [currentPage, setCurrentPage] = useState(1);
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getDanhSachNguoiDungAction());
   }, []);
+
+  useEffect(() => {
+    setCurrentPage(parseInt(location?.state?.currentPage));
+  }, [navigate]);
+
   const columns = [
     {
       title: "User",
@@ -31,7 +40,8 @@ const ListUser = () => {
         }
         return 1;
       },
-      width: "15%",
+      width: 80,
+      fixed: "left",
     },
     {
       title: "Name",
@@ -45,7 +55,7 @@ const ListUser = () => {
         }
         return 1;
       },
-      width: "20%",
+      width: 120,
     },
     {
       title: "Email",
@@ -59,16 +69,17 @@ const ListUser = () => {
         }
         return 1;
       },
-      width: "20%",
+      width: 200,
     },
     {
       title: "Phone",
       dataIndex: "soDt",
-      width: "10%",
+      width: 120,
     },
     {
       title: "Action",
       dataIndex: "action",
+      width: 100,
       render: (value, user, index) => {
         // console.log("value", value);
         // console.log("user", user);
@@ -80,7 +91,7 @@ const ListUser = () => {
                   type: USER_CURRENT,
                   userEdit: user,
                 });
-                await navigate("/admin/editUser");
+                await navigate(`/admin/editUser/${currentPage}`);
               }}
               className="btn btn-primary "
             >
@@ -105,8 +116,19 @@ const ListUser = () => {
   ];
   const data = lstUser;
 
-  const onChange = (pagination, filters, sorter, extra) => {
-    // console.log("params", pagination, filters, sorter, extra);
+  const handlePagination = (page) => {
+    console.log(page);
+    setCurrentPage(page);
+    console.log(currentPage);
+    // Perform any other action here
+  };
+
+  const customPagination = {
+    showSizeChanger: false,
+    current: currentPage,
+    pageSize: 10, // set the page size as per your requirement
+    total: data.length, // set the total count of your data
+    onChange: handlePagination, // handle page change event
   };
   const onSearch = async (value) => {
     await dispatch(getTimKiemNguoiDungAction(value));
@@ -130,7 +152,16 @@ const ListUser = () => {
           Add user
         </Button>
       </div>
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      <Table
+        className="tableUser"
+        scroll={{
+          x: 1000,
+          y: 600,
+        }}
+        columns={columns}
+        dataSource={data}
+        pagination={customPagination}
+      />
     </Fragment>
   );
 };

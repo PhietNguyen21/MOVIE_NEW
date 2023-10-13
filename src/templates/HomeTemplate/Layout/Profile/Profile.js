@@ -60,7 +60,7 @@ const Profile = ({ onClose }) => {
         <span
           onClick={() => {
             navigate("/taiKhoan");
-            onClose();
+            // onClose();
           }}
           className="font-bold"
           style={{

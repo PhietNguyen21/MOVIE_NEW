@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { getListFilmAction } from "../../../../redux/actions/FilmAction";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import "./FilmAdmin.scss";
 
 const onChange = (pagination, filters, sorter, extra) => {
   console.log("params", pagination, filters, sorter, extra);
@@ -48,7 +50,8 @@ const FilmAdmin = () => {
       //   onFilter: (value, record) => record.name.indexOf(value) === 0,
       sorter: (a, b) => a.maPhim - b.maPhim,
       sortDirections: ["descend"],
-      width: "10%",
+      width: 30,
+      fixed: "left",
     },
     {
       title: "Hình ảnh",
@@ -64,7 +67,8 @@ const FilmAdmin = () => {
           </Fragment>
         );
       },
-      window: "10%",
+      width: 30,
+      fixed: "left",
     },
     {
       title: "Ten Phim",
@@ -78,7 +82,7 @@ const FilmAdmin = () => {
         return -1;
       },
       sortDirections: ["descend"],
-      width: "30%",
+      width: 120,
     },
     {
       title: "Mo ta",
@@ -91,10 +95,12 @@ const FilmAdmin = () => {
           </Fragment>
         );
       },
-      width: "20%",
+      width: 220,
     },
     {
       title: "Action",
+      // fixed: "right",
+      width: 140,
       render: (value, film, index) => {
         return (
           <Fragment key={index}>
@@ -149,7 +155,13 @@ const FilmAdmin = () => {
         onSearch={onSearch}
         enterButton={<SearchOutlined style={{ color: "red" }} />}
       />
+
       <Table
+        scroll={{
+          x: 1200,
+          y: 700,
+        }}
+        size="small"
         className="mt-2"
         columns={columns}
         dataSource={data}

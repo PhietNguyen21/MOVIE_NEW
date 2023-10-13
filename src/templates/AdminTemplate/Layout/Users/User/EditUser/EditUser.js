@@ -14,38 +14,22 @@ import {
 import { useFormik } from "formik";
 import { values } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { postThemNguoiDungAction } from "../../../../../../redux/actions/AuthAction";
 import { GP00 } from "../../../../../../types/configType";
 import { postCapNhapThongTinNguoiDung } from "../../../../../../services/AuthServices";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
+import { useEffect } from "react";
 
 const EditUser = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const param = useParams();
+  const { id } = param;
   const { userEdit } = useSelector((state) => state.AuthReducer);
+  const [isEditMove, setIsEditMove] = useState(false);
 
-  // CHECk RONG
-  const isEmtyInput = (value) => {
-    const regex = /^$/;
-
-    return regex.test(value);
-  };
-
-  // EMAIL
-  const isValidEmail = (email) => {
-    // You can implement your email validation logic here
-    // For a basic check, you can use a regular expression
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
-    // Test the email against the regex
-    return emailRegex.test(email);
-  };
-
-  const isValidPhone = (phone) => {
-    const phoneRegex = /^[0-9]{8,10}$/;
-    return phoneRegex.test(phone);
-  };
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -57,33 +41,32 @@ const EditUser = ({ user }) => {
       maLoaiNguoiDung: userEdit?.maLoaiNguoiDung,
       hoTen: userEdit?.hoTen,
     },
+    validationSchema: Yup.object().shape({
+      taiKhoan: Yup.string()
+        .required("Taì khoản là bắt buộc")
+        .matches(
+          /^[a-zA-Z0-9 ]*$/,
+          "Tên tài khoản không được chứa ký tự đặc biệt"
+        )
+        .min(5, "Tên tài khoản ít nhất phải có 5 ký tự"),
+      matKhau: Yup.string()
+        .required("Mật khẩu là bắt buộc")
+        .min(5, "Mật khẩu ít nhất phải có 5 ký tự"),
+      email: Yup.string()
+        .required("Email là bắt buộc")
+        .email("Email là không hợp lệ"),
+      soDt: Yup.string().matches(
+        /^(0)\d{7,9}$/,
+        "Số điện thoại phải bắt đầu bằng 0 và có độ dài từ 8 đến 10 số"
+      ),
+      hoTen: Yup.string().matches(/^[^\d]+$/, "Họ tên không được chứa số"),
+      maLoaiNguoiDung: Yup.string().required("Loại người dùng là bắt buộc"),
+    }),
     onSubmit: async (value, { resetForm }) => {
       // console.log(value);
       // VILIdate
-
+      setIsEditMove(true);
       try {
-        if (
-          isEmtyInput(value.taiKhoan) ||
-          isEmtyInput(value.matKhau) ||
-          isEmtyInput(value.email) ||
-          isEmtyInput(value.soDt) ||
-          isEmtyInput(value.maNhom) ||
-          isEmtyInput(value.maLoaiNguoiDung) ||
-          isEmtyInput(value.hoTen)
-        ) {
-          toast.error("Có phần tử rỗng");
-          return;
-        }
-        if (!isValidEmail(value.email)) {
-          toast.error("Vui lòng nhập đúng email");
-
-          return;
-        }
-        if (!isValidPhone(value.soDt)) {
-          // console.log("vô phone");
-          toast.error("Vui lòng nhập số đt từ 8-10 chữ số");
-          return;
-        }
         const res = await postCapNhapThongTinNguoiDung(
           value.taiKhoan,
           value.matKhau,
@@ -94,7 +77,12 @@ const EditUser = ({ user }) => {
           value.hoTen
         );
         if (res && res.statusCode === 200) {
-          await navigate("/admin/listUser");
+          navigate("/admin/listUser", {
+            state: {
+              isEdit: isEditMove,
+              currentPage: id,
+            },
+          });
           await toast.success("Cap nhat thanh cong");
         } else {
           toast.error(res.content);
@@ -126,32 +114,24 @@ const EditUser = ({ user }) => {
           maxWidth: "80%",
         }}
       >
-        <Form.Item
-          label="Tài khoản"
-          rules={[
-            {
-              required: true,
-              message: "Please input your name account",
-              whitespace: true,
-            },
-          ]}
-        >
+        <Form.Item label="Tài khoản">
           <Input
+            onBlur={formik.handleBlur}
             name="taiKhoan"
             value={formik.values.taiKhoan}
             onChange={formik.handleChange}
+            disabled
           />
         </Form.Item>
         <Form.Item
+          validateStatus={
+            formik.touched.matKhau && formik.errors.matKhau ? "error" : ""
+          }
+          help={formik.touched.matKhau && formik.errors.matKhau}
           label="Mật khẩu"
-          rules={[
-            {
-              required: true,
-              message: "Please input your password",
-            },
-          ]}
         >
           <Input.Password
+            onBlur={formik.handleBlur}
             name="matKhau"
             value={formik.values.matKhau}
             onChange={formik.handleChange}
@@ -160,14 +140,13 @@ const EditUser = ({ user }) => {
 
         <Form.Item
           label="Email"
-          rules={[
-            {
-              type: "email",
-              message: "The input is not valid Email",
-            },
-          ]}
+          validateStatus={
+            formik.touched.email && formik.errors.email ? "error" : ""
+          }
+          help={formik.touched.email && formik.errors.email}
         >
           <Input
+            onBlur={formik.handleBlur}
             name="email"
             value={formik.values.email}
             onChange={formik.handleChange}
@@ -176,14 +155,13 @@ const EditUser = ({ user }) => {
 
         <Form.Item
           label="So dien thoai"
-          rules={[
-            {
-              required: true,
-              message: "Please input your phone number!",
-            },
-          ]}
+          validateStatus={
+            formik.touched.soDt && formik.errors.soDt ? "error" : ""
+          }
+          help={formik.touched.soDt && formik.errors.soDt}
         >
           <Input
+            onBlur={formik.handleBlur}
             name="soDt"
             value={formik.values.soDt}
             onChange={formik.handleChange}
@@ -192,12 +170,12 @@ const EditUser = ({ user }) => {
 
         <Form.Item
           label="LoaiKH"
-          rules={[
-            {
-              required: true,
-              message: "Please select gender!",
-            },
-          ]}
+          validateStatus={
+            formik.touched.maLoaiNguoiDung && formik.errors.maLoaiNguoiDung
+              ? "error"
+              : ""
+          }
+          help={formik.touched.maLoaiNguoiDung && formik.errors.maLoaiNguoiDung}
         >
           <Select
             value={formik.values.maLoaiNguoiDung}
@@ -207,6 +185,7 @@ const EditUser = ({ user }) => {
             onChange={(value) => {
               formik.setFieldValue("maLoaiNguoiDung", value);
             }}
+            onBlur={formik.handleBlur}
             options={[
               {
                 value: "KhachHang",
@@ -220,11 +199,19 @@ const EditUser = ({ user }) => {
           />
         </Form.Item>
 
-        <Form.Item placeholder="Ho ten" label="Ho Ten">
+        <Form.Item
+          validateStatus={
+            formik.touched.hoTen && formik.errors.hoTen ? "error" : ""
+          }
+          help={formik.touched.hoTen && formik.errors.hoTen}
+          placeholder="Ho ten"
+          label="Ho Ten"
+        >
           <Input
             name="hoTen"
             onChange={formik.handleChange}
             value={formik.values.hoTen}
+            onBlur={formik.handleBlur}
           />
         </Form.Item>
         <Form.Item label="Chuc nang">

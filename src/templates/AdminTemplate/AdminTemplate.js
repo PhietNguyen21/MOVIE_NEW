@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
@@ -21,7 +21,7 @@ const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
-
+  const buttonColappsed = useRef(null);
   const userLogin = JSON.parse(localStorage.getItem("USER_LOGIN"));
   // console.log(userLogin.maLoaiNguoiDung === "KhachHang");
 
@@ -82,6 +82,7 @@ const App = () => {
       getItem(
         <div
           onClick={() => {
+            buttonColappsed.current.click();
             navigate("/admin/filmAdmin");
           }}
         >
@@ -93,6 +94,7 @@ const App = () => {
         <div
           onClick={() => {
             navigate("/admin/addnew");
+            buttonColappsed.current.click();
           }}
         >
           Add Film
@@ -105,6 +107,7 @@ const App = () => {
         <div
           onClick={() => {
             navigate("/admin/listUser");
+            buttonColappsed.current.click();
           }}
         >
           List User
@@ -115,6 +118,7 @@ const App = () => {
         <div
           onClick={() => {
             navigate("/admin/addNewUser");
+            buttonColappsed.current.click();
           }}
         >
           Add User
@@ -161,19 +165,36 @@ const App = () => {
             items={items}
           />
         </Sider>
-        <Layout style={{ paddingBottom: "20px" }}>
-          <Content
+        <Header
+          style={{
+            padding: 0,
+            background: "transparent",
+          }}
+        >
+          <Button
+            ref={buttonColappsed}
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
             style={{
-              margin: "24px 16px",
-              padding: 24,
-              minHeight: 280,
-
-              // background: colorBgContainer,
+              fontSize: "16px",
+              width: 64,
+              height: 64,
             }}
-          >
-            <Outlet />
-          </Content>
-        </Layout>
+          />
+        </Header>
+
+        <Content
+          style={{
+            margin: "24px 16px",
+            padding: 24,
+            minHeight: 280,
+
+            // background: colorBgContainer,
+          }}
+        >
+          <Outlet />
+        </Content>
       </Layout>
     </>
   );

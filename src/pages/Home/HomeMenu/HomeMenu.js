@@ -88,7 +88,7 @@ const HomeMenu = (props) => {
                               }
                             >
                               {item.danhSachPhim
-                                ?.slice(0, 10)
+                                ?.slice(0, 20)
                                 .map((phim, index) => {
                                   // console.log("HOME MENU", phim);
                                   return (
@@ -122,7 +122,7 @@ const HomeMenu = (props) => {
                                       <div
                                         className={`lstHour grid gap-3 grid-cols-3 lg:grid-cols-5 mt-2 ${
                                           index ===
-                                          item.danhSachPhim.slice(0, 10)
+                                          item.danhSachPhim.slice(0, 20)
                                             .length -
                                             1
                                             ? "SSS"
@@ -233,7 +233,7 @@ const HomeMenu = (props) => {
                               }
                             >
                               {item.danhSachPhim
-                                ?.slice(0, 10)
+                                ?.slice(0, 20)
                                 .map((phim, index) => {
                                   // console.log("HOME MENU", phim);
                                   return (

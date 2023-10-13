@@ -26,7 +26,7 @@ import {
 } from "../../../../redux/actions/FilmAction";
 import { useDispatch, useSelector } from "react-redux";
 import { GP00 } from "../../../../types/configType";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { data } from "autoprefixer";
 import { postCapNhatPhim } from "../../../../services/MangerFilmServices";
 import { toast } from "react-toastify";

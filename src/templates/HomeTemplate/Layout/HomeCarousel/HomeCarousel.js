@@ -126,7 +126,7 @@ const HomeCarousel = () => {
     });
   };
   return (
-    <div className="homeCarousel" style={{ paddingTop: "100px" }}>
+    <div className="homeCarousel" style={{ paddingTop: "60px" }}>
       <Slider {...settings}>{renderIMG()}</Slider>
     </div>
   );

@@ -1,0 +1,28 @@
+@media screen and (max-width: 1024px) {
+    .scrollDatVe {
+        height: 641px !important;
+    }
+    .infoAccount {
+        height: 981px !important;
+    }
+}
+@media screen and (min-width: 911px) {
+    .scrollDatVe {
+        height: 784px !important;
+    }
+    .infoAccount {
+        height: 1167px !important;
+    }
+}
+@media screen and (max-width: 600px) {
+    .infoAccount {
+        display: block !important;
+        padding-top: 100px;
+    }
+    .infoAccount {
+        height: auto !important;
+    }
+    // .scrollDatVe {
+    //     height: 500px !important;
+    // }
+}

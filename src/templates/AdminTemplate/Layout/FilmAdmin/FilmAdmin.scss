@@ -1,0 +1,21 @@
+@media screen and (min-width: 1050px) {
+    .ant-layout.ant-layout-has-sider {
+        height: 880px !important;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .ant-layout.ant-layout-has-sider {
+        height: 1150px !important;
+    }
+}
+@media screen and (max-width: 600px) {
+    .ant-table-tbody {
+        background-color: #fff;
+    }
+    .ant-form {
+        padding: 0 10px;
+    }
+    .ant-layout-content {
+        padding: 0 !important;
+    }
+}

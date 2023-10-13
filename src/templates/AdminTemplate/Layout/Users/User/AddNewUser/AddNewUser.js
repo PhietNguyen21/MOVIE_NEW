@@ -19,12 +19,13 @@ import { postThemNguoiDungAction } from "../../../../../../redux/actions/AuthAct
 import { GP00 } from "../../../../../../types/configType";
 import { Option } from "antd/lib/mentions";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
 
 const AddNewUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formik = useFormik({
-    enableReinitialize: true,
+    // enableReinitialize: true,
     initialValues: {
       taiKhoan: "",
       matKhau: "",
@@ -34,23 +35,30 @@ const AddNewUser = () => {
       maLoaiNguoiDung: "",
       hoTen: "",
     },
+
+    validationSchema: Yup.object().shape({
+      taiKhoan: Yup.string()
+        .required("Taì khoản là bắt buộc")
+        .matches(
+          /^[a-zA-Z0-9 ]*$/,
+          "Tên tài khoản không được chứa ký tự đặc biệt"
+        )
+        .min(5, "Tên tài khoản ít nhất phải có 5 ký tự"),
+      matKhau: Yup.string()
+        .required("Mật khẩu là bắt buộc")
+        .min(5, "Mật khẩu ít nhất phải có 5 ký tự"),
+      email: Yup.string()
+        .required("Email là bắt buộc")
+        .email("Email là không hợp lệ"),
+      soDt: Yup.string().matches(
+        /^(0)\d{7,9}$/,
+        "Số điện thoại phải bắt đầu bằng 0 và có độ dài từ 8 đến 10 số"
+      ),
+      hoTen: Yup.string().matches(/^[^\d]+$/, "Họ tên không được chứa số"),
+      maLoaiNguoiDung: Yup.string().required("Loại người dùng là bắt buộc"),
+    }),
     onSubmit: async (value, { resetForm }) => {
       // console.log(value);
-      if (
-        isEmtyInput(value.taiKhoan) ||
-        isEmtyInput(value.matKhau) ||
-        isEmtyInput(value.hoTen) ||
-        isEmtyInput(value.email) ||
-        isEmtyInput(value.soDt) ||
-        isEmtyInput(value.maLoaiNguoiDung)
-      ) {
-        toast.error("Vui long nhap chinh xac thong tin");
-        return;
-      }
-      if (!isValidEmail(value.email)) {
-        toast.error("Vui long nhap chinh xac thong tin");
-        return;
-      }
 
       await dispatch(
         postThemNguoiDungAction(
@@ -64,21 +72,11 @@ const AddNewUser = () => {
         )
       );
 
-      await resetForm();
+      resetForm();
+      console.log(value);
     },
   });
-  // VALIDATE EMPTY INPUT
-  const isEmtyInput = (value) => {
-    return value.trim() === "";
-  };
-  //VALIDATE EMAIL
-  const isValidEmail = (email) => {
-    // You can implement your email validation logic here
-    // For a basic check, you can use a regular expression
-    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    return emailRegex.test(email);
-  };
-  // VALIDATE PHONE
+
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select
@@ -96,6 +94,7 @@ const AddNewUser = () => {
     <>
       <div className="text-center text-2xl mb-2 font-bold">Thêm người dùng</div>
       <Form
+        onFinish={formik.handleSubmit}
         labelCol={{
           span: 6,
         }}
@@ -111,90 +110,80 @@ const AddNewUser = () => {
       >
         <Form.Item
           label="Tài khoản"
-          name="taiKhoan"
-          rules={[
-            {
-              required: true,
-              message: "Please input your name account",
-              whitespace: true,
-            },
-          ]}
+          validateStatus={
+            formik.touched.taiKhoan && formik.errors.taiKhoan ? "error" : ""
+          }
+          help={formik.touched.taiKhoan && formik.errors.taiKhoan}
         >
           <Input
             name="taiKhoan"
             value={formik.values.taiKhoan}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.setFieldValue("taiKhoan", e.target.value);
+            }}
+            onBlur={formik.handleBlur}
           />
         </Form.Item>
         <Form.Item
-          name="matKhau"
+          validateStatus={
+            formik.touched.matKhau && formik.errors.matKhau ? "error" : ""
+          }
+          help={formik.touched.matKhau && formik.errors.matKhau}
           label="Mật khẩu"
-          rules={[
-            {
-              required: true,
-              message: "Please input your password",
-            },
-          ]}
         >
           <Input.Password
             name="matKhau"
             value={formik.values.matKhau}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.setFieldValue("matKhau", e.target.value);
+            }}
+            onBlur={formik.handleBlur}
           />
         </Form.Item>
 
         <Form.Item
-          name="email"
           label="Email"
-          rules={[
-            {
-              type: "email",
-              message: "The input is not valid Email",
-            },
-            {
-              required: true,
-              message: "Please input your Email",
-            },
-          ]}
+          validateStatus={
+            formik.touched.email && formik.errors.email ? "error" : ""
+          }
+          help={formik.touched.email && formik.errors.email}
         >
           <Input
+            onBlur={formik.handleBlur}
             name="email"
             value={formik.values.email}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.setFieldValue("email", e.target.value);
+            }}
           />
         </Form.Item>
 
         <Form.Item
-          name="soDt"
           label="Số điện thoại"
-          rules={[
-            {
-              required: true,
-              message: "Please input your phone number!",
-            },
-            {
-              pattern: /^[0-9]{8,10}$/, // Add this pattern validation for 8 to 10 digits
-              message: "Invalid phone number. Please enter 8 to 10 digits.",
-            },
-          ]}
+          validateStatus={
+            formik.touched.soDt && formik.errors.soDt ? "error" : ""
+          }
+          help={formik.touched.soDt && formik.errors.soDt}
         >
           <Input
             addonBefore={prefixSelector}
             name="soDt"
             value={formik.values.soDt}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.setFieldValue("soDt", e.target.value);
+            }}
+            onBlur={formik.handleBlur}
           />
         </Form.Item>
 
         <Form.Item
-          name="maLoaiNguoiDung"
           label="Loại khách hàng"
-          rules={[
-            {
-              required: true,
-              message: "Please select user type!",
-            },
-          ]}
+          validateStatus={
+            formik.touched.maLoaiNguoiDung && formik.errors.maLoaiNguoiDung
+              ? "error"
+              : ""
+          }
+          help={formik.touched.maLoaiNguoiDung && formik.errors.maLoaiNguoiDung}
         >
           <Select
             value={formik.values.maLoaiNguoiDung}
@@ -204,6 +193,7 @@ const AddNewUser = () => {
             onChange={(value) => {
               formik.setFieldValue("maLoaiNguoiDung", value);
             }}
+            onBlur={formik.handleBlur}
             options={[
               {
                 value: "KhachHang",
@@ -218,24 +208,24 @@ const AddNewUser = () => {
         </Form.Item>
 
         <Form.Item
-          name="hoTen"
-          rules={[
-            {
-              required: true,
-              message: "Please input your name",
-            },
-          ]}
+          validateStatus={
+            formik.touched.hoTen && formik.errors.hoTen ? "error" : ""
+          }
+          help={formik.touched.hoTen && formik.errors.hoTen}
           placeholder="Ho ten"
           label="Họ tên"
         >
           <Input
             name="hoTen"
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.setFieldValue("hoTen", e.target.value);
+            }}
             value={formik.values.hoTen}
+            onBlur={formik.handleBlur}
           />
         </Form.Item>
         <Form.Item label="Chức năng">
-          <Button onClick={formik.handleSubmit}>Thêm</Button>
+          <Button htmlType="submit">Thêm</Button>
         </Form.Item>
       </Form>
     </>

@@ -61,7 +61,7 @@ function App() {
           <Route path="showtime/:maPhim/:tenPhim" element={<AddShowTime />} />
           <Route path="listUser" element={<ListUser />} />
           <Route path="AddNewUser" element={<AddNewUser />} />
-          <Route path="editUser" element={<EditUser />} />
+          <Route path="editUser/:id" element={<EditUser />} />
           <Route path="deleteUser" element={<DeleteUser />} />
         </Route>
 

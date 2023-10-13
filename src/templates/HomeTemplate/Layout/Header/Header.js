@@ -56,7 +56,7 @@ const Header = () => {
             onClick={() => {
               navigate("/user/register");
             }}
-            className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900"
+            className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900 mx-2"
           >
             {t("Sign up")}
           </button>

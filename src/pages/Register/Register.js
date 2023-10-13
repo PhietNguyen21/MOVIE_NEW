@@ -10,57 +10,72 @@ import { useDispatch } from "react-redux";
 import axios from "../../util/axiosCustomize";
 import { REGISTER } from "../../redux/actions/types/AuthType";
 import { postRegister } from "../../services/AuthServices";
+import { useFormik } from "formik";
+
+import * as Yup from "yup";
+import { GP00 } from "../../types/configType";
 const Register = () => {
-  const [edit, setEdit] = useState({
-    email: "",
-    taiKhoan: "",
-    matKhau: "",
-    soDt: "",
-    maNhom: "GP00",
-    hoTen: "",
-  });
   const dispatch = useDispatch();
   const nagivate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEdit({
-      ...edit,
-      [name]: name === "soDt" ? parseInt(value) : value,
-    });
-    // console.log(edit);
-  };
+  const formik = useFormik({
+    initialValues: {
+      taiKhoan: "",
+      matKhau: "",
+      email: "",
+      soDt: "",
+      maNhom: GP00,
+      hoTen: "",
+    },
+    validationSchema: Yup.object().shape({
+      taiKhoan: Yup.string()
+        .required("Tài khoản là bắt buộc")
+        .matches(
+          /^[a-zA-Z0-9 ]*$/,
+          "Tên tài khoản không được chứa ký tự đặc biệt"
+        )
+        .min(5, "Tên tài khoản ít nhất phải có 5 ký tự"),
 
-  const onRegister = async (e) => {
-    const res = await axios.post(
-      "https://movieapi.cyberlearn.vn/api/QuanLyNguoiDung/DangKy",
-      {
-        taiKhoan: edit.taiKhoan,
-        email: edit.email,
-        matKhau: edit.matKhau,
-        soDt: parseInt(edit.soDt),
-        maNhom: edit.maNhom,
-        hoTen: edit.hoTen,
+      matKhau: Yup.string()
+        .required("Mật khẩu là bắt buộc")
+        .min(5, "Mật khẩu ít nhất phải có 5 ký tự"),
+      email: Yup.string()
+        .required("Email là bắt buộc")
+        .email("Email là không hợp lệ"),
+      soDt: Yup.string().matches(
+        /^(0)\d{7,9}$/,
+        "Số điện thoại phải bắt đầu bằng 0 và có độ dài từ 8 đến 10 số"
+      ),
+      hoTen: Yup.string().matches(/^[^\d]+$/, "Họ tên không được chứa số"),
+    }),
+    onSubmit: async (val) => {
+      try {
+        const res = await postRegister(
+          val.taiKhoan,
+          val.matKhau,
+          val.email,
+          val.soDt,
+          val.maNhom,
+          val.hoTen
+        );
+        if (res && res.statusCode === 200) {
+          nagivate("/user/login", {
+            state: {
+              isRegister: true,
+            },
+          });
+          toast.success("Đăng ký thành công");
+        } else {
+          toast.error("Đăng ký không thành công");
+        }
+      } catch (error) {
+        console.log("ERRR", error);
       }
-    );
-    // console.log(res);
-    if (res.statusCode === 200) {
-      console.log(res);
-      toast.success("Đăng ký thành công");
-      dispatch({
-        type: REGISTER,
-        dataUser: res.content,
-      });
-      nagivate("/user/login", {
-        state: {
-          isRegister: true,
-        },
-      });
-    } else {
-      console.log(res);
-      toast.error(res.content);
-    }
-  };
+    },
+  });
+
+  // console.log(res);
+
   // const clickBackHome = () => {
   //   navigate("/");
   // };
@@ -68,7 +83,7 @@ const Register = () => {
   return (
     <>
       <div className="lg:w-1/2 xl:max-w-screen-sm">
-        <div className="py-12 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12">
+        <div className="py-2 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12">
           <div className="cursor-pointer flex items-center">
             <div>
               <svg
@@ -122,11 +137,12 @@ const Register = () => {
                 <input
                   className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                   type="text"
-                  required
                   name="taiKhoan"
-                  onChange={handleChange}
+                  value={formik.values.taiKhoan}
+                  onChange={formik.handleChange}
                   placeholder="Nhập tên tài khoản"
                 />
+                <div className="text-red-900">{formik.errors.taiKhoan}</div>
               </div>
               <div className="mt-6">
                 <div className="flex justify-between items-center">
@@ -138,10 +154,11 @@ const Register = () => {
                   className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                   type="password"
                   placeholder="Nhập vào mật khẩu"
-                  required
                   name="matKhau"
-                  onChange={handleChange}
+                  onChange={formik.handleChange}
+                  value={formik.values.matKhau}
                 />
+                <div className="text-red-900">{formik.errors.matKhau}</div>
               </div>
               <div className="mt-6">
                 <div className="flex justify-between items-center">
@@ -155,8 +172,10 @@ const Register = () => {
                   placeholder="Nhập vào email"
                   required
                   name="email"
-                  onChange={handleChange}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
                 />
+                <div className="text-red-900">{formik.errors.email}</div>
               </div>
               <div className="mt-6">
                 <div className="flex justify-between items-center">
@@ -170,8 +189,10 @@ const Register = () => {
                   placeholder="Nhập vào số điện thoại"
                   required
                   name="soDt"
-                  onChange={handleChange}
+                  value={formik.values.soDt}
+                  onChange={formik.handleChange}
                 />
+                <div className="text-red-900">{formik.errors.soDt}</div>
               </div>
 
               <div className="mt-6">
@@ -186,14 +207,15 @@ const Register = () => {
                   placeholder="Nhập vào Ho va ten"
                   required
                   name="hoTen"
-                  value={edit.hoTen}
-                  onChange={handleChange}
+                  value={formik.values.hoTen}
+                  onChange={formik.handleChange}
                 />
+                <div className="text-red-900">{formik.errors.hoTen}</div>
               </div>
 
               <div className="mt-10">
                 <button
-                  onClick={onRegister}
+                  onClick={formik.handleSubmit}
                   className="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
                 font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
                 shadow-lg"

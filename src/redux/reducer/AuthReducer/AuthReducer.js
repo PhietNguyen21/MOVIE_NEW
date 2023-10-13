@@ -16,6 +16,8 @@ import {
 import { ThongTinUser } from "../../../_core/models/ThongTinUser";
 import data from "../../../assets/dataRate.json";
 import { LAY_THONG_TIN_PHIM } from "../../actions/types/FilmType";
+import { useDispatch } from "react-redux";
+import { DIS_LOADING, LOADING } from "../../actions/types/LoadingType";
 
 let userDangNhap = {};
 if (localStorage.getItem(USER_LOGIN)) {
@@ -34,6 +36,7 @@ const stateDefault = {
   lstUserDefault: [],
   dataComment: data.dataRate,
   thongTinTaiKhoan: {},
+  currentPaginate: 1,
 };
 
 export const AuthReducer = (state = stateDefault, action) => {
