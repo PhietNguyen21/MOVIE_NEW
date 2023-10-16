@@ -11,10 +11,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "./FilmAdmin.scss";
-
-const onChange = (pagination, filters, sorter, extra) => {
-  console.log("params", pagination, filters, sorter, extra);
-};
+import { useState } from "react";
 
 const { Search } = Input;
 const suffix = (
@@ -27,13 +24,20 @@ const suffix = (
 );
 
 const FilmAdmin = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const { currentPageFilm } = useSelector((state) => state.AuthReducer);
+  const onChange = (pagination) => {
+    setCurrentPage(pagination);
+  };
   const { arrFilmDefault } = useSelector((state) => state.ManangerFilmReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getListFilmAction());
   }, []);
-
+  useEffect(() => {
+    setCurrentPage(parseInt(currentPageFilm));
+  }, [currentPageFilm]);
   // console.log("ARRFILM", arrFilmDefault);
 
   const onSearch = async (value) => {
@@ -95,19 +99,21 @@ const FilmAdmin = () => {
           </Fragment>
         );
       },
-      width: 220,
+      width: 180,
     },
     {
       title: "Action",
       // fixed: "right",
-      width: 140,
+      width: 180,
       render: (value, film, index) => {
         return (
           <Fragment key={index}>
             <div className="flex">
               <button
                 onClick={() => {
-                  navigate(`/admin/${film.maPhim}`);
+                  navigate(`/admin/editFilm/${film.maPhim}`, {
+                    state: { currentPage },
+                  });
                 }}
                 className="btn btn-primary "
               >
@@ -139,33 +145,42 @@ const FilmAdmin = () => {
   const data = arrFilmDefault;
   return (
     <div>
-      <h3 className="text-4xl mb-2">Manager Film</h3>
-      <Button
-        className="border-green-500 mb-2 "
-        onClick={() => {
-          navigate("/admin/addnew");
-        }}
-      >
-        Add movie
-      </Button>
+      <div className="text-center">
+        <h3 className="text-4xl mb-2">Manager Film</h3>
+        <Button
+          className="  text-black mb-2 border-blue-500"
+          onClick={() => {
+            navigate("/admin/addnew");
+          }}
+        >
+          Add movie
+        </Button>
 
-      <Search
-        className={styleContent.inputSearch}
-        placeholder="input search text"
-        onSearch={onSearch}
-        enterButton={<SearchOutlined style={{ color: "red" }} />}
-      />
+        <Search
+          className={styleContent.inputSearch}
+          placeholder="input search text"
+          onSearch={onSearch}
+          enterButton={<SearchOutlined style={{ color: "red" }} />}
+        />
+      </div>
 
       <Table
         scroll={{
-          x: 1200,
+          x: 1100,
           y: 700,
         }}
         size="small"
         className="mt-2"
         columns={columns}
         dataSource={data}
-        onChange={onChange}
+        pagination={{
+          onChange: onChange,
+          total: data.length,
+          pageSize: 10,
+          showSizeChanger: false,
+          current: currentPage,
+          defaultCurrent: 1,
+        }}
         rowKey="maPhim"
       />
     </div>

@@ -3,7 +3,11 @@
     width: 100%;
     top: 0;
     left: 0;
-    background-color: black;
+    background-color: #fff;
+    box-shadow:
+        0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
     z-index: 10;
     // transition: all 0.5s;
     .header-content {
@@ -18,7 +22,7 @@
             transform: translate(-50%, -50%);
             display: flex;
             .item-nav {
-                color: violet;
+                color: #fb4226;
                 font-size: 16px;
                 margin: 0 10px;
                 margin-bottom: 20px;
@@ -37,9 +41,9 @@
             }
             .item-nav.active {
                 a {
-                    border-bottom: 2px solid white;
+                    border-bottom: 2px solid black;
 
-                    color: white;
+                    color: black;
                 }
             }
         }
@@ -114,7 +118,7 @@
     .hamBerGer {
         position: fixed;
         z-index: 10;
-        top: 3.5%;
+        top: 3%;
         right: 0;
         margin-right: 10px;
     }
@@ -152,7 +156,7 @@
     }
 }
 .headerScroll {
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 @media screen and (max-width: 600px) {

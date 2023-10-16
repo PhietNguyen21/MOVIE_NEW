@@ -2,6 +2,8 @@ import { Login } from "iconsax-react";
 import { GP00, USER_LOGIN, USER_REGISTER } from "../../../types/configType";
 import {
   CAP_NHAT_THANH_CONG,
+  CURRENT_PAGE,
+  CURRENT_PAGE_FILM,
   DANG_NHAP_THANH_CONG,
   DANG_NHAP_THAT_BAI,
   DANG_XUAT,
@@ -37,6 +39,7 @@ const stateDefault = {
   dataComment: data.dataRate,
   thongTinTaiKhoan: {},
   currentPaginate: 1,
+  currentPageFilm: 1,
 };
 
 export const AuthReducer = (state = stateDefault, action) => {
@@ -125,7 +128,13 @@ export const AuthReducer = (state = stateDefault, action) => {
       localStorage.setItem(USER_LOGIN, JSON.stringify(userDN));
       return { ...state, user: userDN };
     }
-
+    case CURRENT_PAGE: {
+      // console.log(action);
+      return { ...state, currentPaginate: action.currentPage };
+    }
+    case CURRENT_PAGE_FILM: {
+      return { ...state, currentPageFilm: action.currentPage };
+    }
     default:
       return { ...state };
   }

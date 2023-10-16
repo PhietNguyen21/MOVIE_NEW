@@ -21,6 +21,7 @@ import { postCapNhapThongTinNguoiDung } from "../../../../../../services/AuthSer
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { useEffect } from "react";
+import { CURRENT_PAGE } from "../../../../../../redux/actions/types/AuthType";
 
 const EditUser = ({ user }) => {
   const dispatch = useDispatch();
@@ -65,7 +66,10 @@ const EditUser = ({ user }) => {
     onSubmit: async (value, { resetForm }) => {
       // console.log(value);
       // VILIdate
-      setIsEditMove(true);
+      await dispatch({
+        type: CURRENT_PAGE,
+        currentPage: id,
+      });
       try {
         const res = await postCapNhapThongTinNguoiDung(
           value.taiKhoan,
@@ -77,12 +81,7 @@ const EditUser = ({ user }) => {
           value.hoTen
         );
         if (res && res.statusCode === 200) {
-          navigate("/admin/listUser", {
-            state: {
-              isEdit: isEditMove,
-              currentPage: id,
-            },
-          });
+          navigate("/admin/listUser");
           await toast.success("Cap nhat thanh cong");
         } else {
           toast.error(res.content);

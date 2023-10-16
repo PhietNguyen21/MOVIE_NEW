@@ -31,6 +31,7 @@ import { data } from "autoprefixer";
 import { postCapNhatPhim } from "../../../../services/MangerFilmServices";
 import { toast } from "react-toastify";
 import _ from "lodash";
+import { CURRENT_PAGE_FILM } from "../../../../redux/actions/types/AuthType";
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 const normFile = (e) => {
@@ -43,7 +44,14 @@ const EditFilm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
+  const location = useLocation();
+  let pageCurrent = location?.state?.currentPage;
 
+  useEffect(() => {
+    pageCurrent = location?.state?.currentPage;
+  }, [location]);
+
+  console.log(pageCurrent);
   // lay Action thanh cong hay that bai
 
   const { thongTinPhim } = useSelector((state) => state.ManangerFilmReducer);
@@ -80,6 +88,10 @@ const EditFilm = () => {
     onSubmit: async (value) => {
       //   console.log(value);
       console.log(value);
+      dispatch({
+        type: CURRENT_PAGE_FILM,
+        currentPage: pageCurrent,
+      });
       const res = await postCapNhatPhim(
         value.maPhim,
         value.tenPhim,

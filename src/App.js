@@ -56,7 +56,7 @@ function App() {
           <Route path="showtime" element={<ShowTime />} />
 
           <Route path="addnew" element={<AddNew />} />
-          <Route path=":id" element={<EditFilm />} />
+          <Route path="editFilm/:id" element={<EditFilm />} />
           <Route path="delete/:maPhim" element={<DeleteFilm />} />
           <Route path="showtime/:maPhim/:tenPhim" element={<AddShowTime />} />
           <Route path="listUser" element={<ListUser />} />

@@ -21,6 +21,7 @@ import moment from "moment";
 import { parseInt } from "lodash";
 import { useDispatch } from "react-redux";
 import { postTaoLichChieuAction } from "../../../../redux/actions/BookingTicketAction";
+import * as Yup from "yup";
 const AddShowTime = () => {
   const param = useParams();
   const { maPhim, tenPhim } = param;
@@ -73,8 +74,6 @@ const AddShowTime = () => {
   //     // console.log(currentHtr);
   //   }, [currentHtr]);
   const handleChangeHTR = async (value) => {
-    // console.log(value);
-
     await layThongTinCumRap(value);
   };
   const handleChangeCumRap = (value) => {
@@ -85,13 +84,11 @@ const AddShowTime = () => {
     const date = moment(value).format("DD/MM/YYYY hh:mm:ss");
 
     formik.setFieldValue("ngayChieuGioChieu", date);
-    console.log(formik.values.ngayChieuGioChieu);
   };
 
   const handleChangeDate = (value) => {
     const date = moment(value).format("DD/MM/YYYY hh:mm:ss");
     formik.setFieldValue("ngayChieuGioChieu", date);
-    console.log(formik.values.ngayChieuGioChieu);
   };
   const reverseThongTinCumRap = () => {
     return thongTinCumRap?.map((cumRap, index) => {
@@ -102,14 +99,16 @@ const AddShowTime = () => {
     });
   };
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       maPhim: parseInt(maPhim),
       ngayChieuGioChieu: "",
       maRap: "",
       giaVe: 0,
     },
+    // validationSchema: Yup.object().shape({}),
     onSubmit: async (value) => {
-      console.log(value);
+      // console.log(value);
 
       await dispatch(
         postTaoLichChieuAction(
@@ -119,7 +118,7 @@ const AddShowTime = () => {
           value.giaVe
         )
       );
-      formik.resetForm();
+      window.location.reload();
     },
   });
 
@@ -141,6 +140,7 @@ const AddShowTime = () => {
         </div>
       </div>
       <Form
+        onFinish={formik.handleSubmit}
         layout="horizontal"
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 16 }}
@@ -182,14 +182,7 @@ const AddShowTime = () => {
           />
         </Form.Item>
         <Form.Item label="Chuc nang">
-          <Button
-            type="submit"
-            onClick={() => {
-              formik.handleSubmit();
-            }}
-          >
-            Add show time
-          </Button>
+          <Button htmlType="submit">Add show time</Button>
         </Form.Item>
       </Form>
     </>

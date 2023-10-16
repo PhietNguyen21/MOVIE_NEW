@@ -7,7 +7,7 @@ import {
   getTimKiemNguoiDungAction,
 } from "../../../../../redux/actions/AuthAction";
 import { Fragment } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { USER_CURRENT } from "../../../../../redux/actions/types/AuthType";
 import Search from "antd/lib/input/Search";
 import { SearchOutlined } from "@ant-design/icons";
@@ -16,17 +16,22 @@ const ListUser = () => {
   const { lstUser } = useSelector((state) => state.AuthReducer);
   //Phân trang hiện tại
   const [currentPage, setCurrentPage] = useState(1);
-  const location = useLocation();
+  // const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(getDanhSachNguoiDungAction());
   }, []);
 
-  useEffect(() => {
-    setCurrentPage(parseInt(location?.state?.currentPage));
-  }, [navigate]);
+  const current = useSelector((state) => state.AuthReducer.currentPaginate);
+  // useEffect(() => {
+  //   setCurrentPage(location?.state?.currentPage || 1);
+  // }, [location]);
 
+  useEffect(() => {
+    setCurrentPage(parseInt(current));
+  }, [current]);
   const columns = [
     {
       title: "User",
@@ -91,7 +96,7 @@ const ListUser = () => {
                   type: USER_CURRENT,
                   userEdit: user,
                 });
-                await navigate(`/admin/editUser/${currentPage}`);
+                navigate(`/admin/editUser/${currentPage}`);
               }}
               className="btn btn-primary "
             >
@@ -114,22 +119,21 @@ const ListUser = () => {
       },
     },
   ];
-  const data = lstUser;
 
   const handlePagination = (page) => {
-    console.log(page);
     setCurrentPage(page);
-    console.log(currentPage);
+
     // Perform any other action here
   };
 
-  const customPagination = {
-    showSizeChanger: false,
-    current: currentPage,
-    pageSize: 10, // set the page size as per your requirement
-    total: data.length, // set the total count of your data
-    onChange: handlePagination, // handle page change event
-  };
+  // const customPagination = {
+  //   showSizeChanger: false,
+  //   defaultCurrent: 1,
+  //   current: currentPage,
+  //   pageSize: 10, // set the page size as per your requirement
+  //   total: lstUser.length, // set the total count of your data
+  //   onChange: handlePagination, // handle page change event
+  // };
   const onSearch = async (value) => {
     await dispatch(getTimKiemNguoiDungAction(value));
   };
@@ -137,20 +141,21 @@ const ListUser = () => {
     <Fragment>
       <div className="text-center mb-2">
         <h1 className="mb-2 font-bold text-2xl text-center ">DANH SÁCH USER</h1>
+
+        <Button
+          onClick={() => {
+            navigate("/admin/addNewUser");
+          }}
+          className="text-black mb-2 border-blue-500"
+        >
+          Add user
+        </Button>
         <Search
           className="mb-2"
           placeholder="input search text"
           onSearch={onSearch}
           enterButton={<SearchOutlined style={{ color: "red" }} />}
         />
-        <Button
-          onClick={() => {
-            navigate("/admin/addNewUser");
-          }}
-          className="text-black border-blue-500"
-        >
-          Add user
-        </Button>
       </div>
       <Table
         className="tableUser"
@@ -159,8 +164,14 @@ const ListUser = () => {
           y: 600,
         }}
         columns={columns}
-        dataSource={data}
-        pagination={customPagination}
+        dataSource={lstUser}
+        pagination={{
+          onChange: handlePagination,
+          total: lstUser.length,
+          showSizeChanger: false,
+          pageSize: 10,
+          current: currentPage,
+        }}
       />
     </Fragment>
   );

@@ -6,7 +6,12 @@ import "./Header.scss";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import Profile from "../Profile/Profile";
-import { ArrowCircleLeft, HambergerMenu, User } from "iconsax-react";
+import {
+  ArrowCircleLeft,
+  ArrowCircleRight,
+  HambergerMenu,
+  User,
+} from "iconsax-react";
 import { DANG_XUAT } from "../../../../redux/actions/types/AuthType";
 import {
   LeftSquareOutlined,
@@ -238,22 +243,26 @@ const Header = () => {
           >
             <p className="pl-6">{t("header.News")}</p>
           </div>
-          <div
-            onClick={() => {
-              dispatch({
-                type: DANG_XUAT,
-              });
-              navigate("/");
-              onClose();
-            }}
-            className="item-hamber cursor-pointer text-xl"
-          >
-            <p className="pl-6">{t("Dangxuat")}</p>
-          </div>
+          {_.isEmpty(USER_LOGIN) ? (
+            <div
+              onClick={() => {
+                dispatch({
+                  type: DANG_XUAT,
+                });
+                navigate("/");
+                onClose();
+              }}
+              className="item-hamber cursor-pointer text-xl"
+            >
+              <p className="pl-6">{t("Dangxuat")}</p>
+            </div>
+          ) : (
+            ""
+          )}
           {!localStorage.getItem(USER_LOGIN) ? (
             <div className="rounded-full icon-close" onClick={onClose}>
               {" "}
-              <ArrowCircleLeft
+              <ArrowCircleRight
                 size="26"
                 className="item-icon"
                 color="#FF8A65"
