@@ -32,6 +32,7 @@ import { postCapNhatPhim } from "../../../../services/MangerFilmServices";
 import { toast } from "react-toastify";
 import _ from "lodash";
 import { CURRENT_PAGE_FILM } from "../../../../redux/actions/types/AuthType";
+import { LOADING } from "../../../../redux/actions/types/LoadingType";
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 const normFile = (e) => {
@@ -87,7 +88,10 @@ const EditFilm = () => {
 
     onSubmit: async (value) => {
       //   console.log(value);
-      console.log(value);
+      dispatch({
+        type: LOADING,
+      });
+
       dispatch({
         type: CURRENT_PAGE_FILM,
         currentPage: pageCurrent,
@@ -111,6 +115,11 @@ const EditFilm = () => {
         console.log(res);
         // dispatch(getListFilmAction());
         toast.success("Cập nhật thành công");
+        // setTimeout(()=>{
+        //   dispatch({
+        //     t
+        //   })
+        // },[1000])
       } else {
         console.log(res);
         toast.error(res.content);

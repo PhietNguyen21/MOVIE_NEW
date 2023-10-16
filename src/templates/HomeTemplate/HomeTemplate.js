@@ -5,6 +5,7 @@ import Header from "./Layout/Header/Header";
 import Footer from "../HomeTemplate/Layout/Footer/Footer";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import BackToTop from "../../component/BackToTop/BackToTop";
 
 const HomeTemplate = () => {
   useEffect(() => {
@@ -22,6 +23,7 @@ const HomeTemplate = () => {
         <Outlet />
       </div>
       <Footer />
+      <BackToTop />
     </>
   );
 };

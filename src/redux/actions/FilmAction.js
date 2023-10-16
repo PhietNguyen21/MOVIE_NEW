@@ -18,10 +18,10 @@ import { useNavigate } from "react-router-dom";
 
 export const getListFilmAction = (tenPhim) => {
   return async (dispatch, getState) => {
+    dispatch({
+      type: LOADING,
+    });
     try {
-      dispatch({
-        type: LOADING,
-      });
       const res = await getListFilm(tenPhim);
       if (res && res.statusCode === 200) {
         dispatch({
@@ -34,7 +34,7 @@ export const getListFilmAction = (tenPhim) => {
         dispatch({
           type: DIS_LOADING,
         });
-      }, [1000]);
+      }, [2000]);
     } catch (error) {
       console.log("err", error);
     }

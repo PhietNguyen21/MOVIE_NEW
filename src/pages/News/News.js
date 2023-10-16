@@ -6,13 +6,13 @@ const News = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 600,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
     autoplay: true,
 
-    autoplaySpeed: 2000,
+    autoplaySpeed: 1000,
   };
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const cusTomRender = () => {
@@ -30,7 +30,7 @@ const News = () => {
     });
   };
   return (
-    <div className="News pt-24" style={{ width: "100vw" }}>
+    <div className="News pt-24">
       <div
         className="news-content"
         style={{
@@ -52,28 +52,42 @@ const News = () => {
             transform: `translate(-50%,-50%)`,
           }}
         >
-          <div className="grid grid-cols-2 z-10 gap-3">
-            <div className="new-right text-white pt-6">
+          <div className="grid grid-cols-2 z-10 gap-3 news-list">
+            <div className="new-left text-white pt-6">
               <p className="text-2xl">Ứng dụng tiện lợi dành cho</p>
-              <p className="text-2xl mb-2">người yêu điện ảnh</p>
+              <p className="text-2xl mb-3">người yêu điện ảnh</p>
 
-              <p className="text-sm mb-2">
+              <p className="text-sm mb-3">
                 Không chỉ đặt vé, bạn còn có thể bình luận phim, chấm điểm rạp
                 và đổi quà hấp dẫn.
               </p>
-              <Button className="rounded mb-2" danger>
+              <button className="btn btn-danger mb-3" danger>
                 Cài đặt Progressive App
-              </Button>
+              </button>
               <p>
-                Tix có hai phiên bản <a href="#">IOS</a> và{" "}
-                <a href="#">Android</a>
+                Tix có hai phiên bản{" "}
+                <a
+                  style={{ textDecoration: "underline" }}
+                  className="font-bold text-white"
+                  href="https://apps.apple.com/us/app/123phim-mua-ve-lien-tay-chon/id615186197"
+                >
+                  IOS
+                </a>{" "}
+                và{" "}
+                <a
+                  style={{ textDecoration: "underline" }}
+                  className="font-bold"
+                  href="https://play.google.com/store/apps/details?id=vn.com.vng.phim123&pli=1"
+                >
+                  Android
+                </a>
               </p>
             </div>
             <div className="mobile" style={{ position: "relative" }}>
               <img src="./image/mobile.png" className="imgMb" alt="mobile" />
 
               <div
-                className="rounded-xl"
+                className="rounded-xl mobile"
                 style={{
                   top: 0,
                   left: 0,

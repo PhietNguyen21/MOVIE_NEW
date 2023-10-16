@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { useEffect } from "react";
 import { CURRENT_PAGE } from "../../../../../../redux/actions/types/AuthType";
+import { LOADING } from "../../../../../../redux/actions/types/LoadingType";
 
 const EditUser = ({ user }) => {
   const dispatch = useDispatch();
@@ -69,6 +70,9 @@ const EditUser = ({ user }) => {
       await dispatch({
         type: CURRENT_PAGE,
         currentPage: id,
+      });
+      dispatch({
+        type: LOADING,
       });
       try {
         const res = await postCapNhapThongTinNguoiDung(

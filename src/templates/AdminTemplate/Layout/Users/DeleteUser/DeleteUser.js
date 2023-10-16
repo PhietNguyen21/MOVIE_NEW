@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteXoaNguoiDung } from "../../../../../services/AuthServices";
 import { toast } from "react-toastify";
+import { LOADING } from "../../../../../redux/actions/types/LoadingType";
 
 const DeleteUser = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ const DeleteUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch({
+      type: LOADING,
+    });
     // console.log(taiKhoan);
     try {
       const res = await deleteXoaNguoiDung(taiKhoan);

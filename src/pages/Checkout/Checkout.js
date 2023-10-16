@@ -25,6 +25,7 @@ import KetQuaCheckOut from "./KetQuaCheckOut";
 import { useState } from "react";
 import CountdownTime from "./CoundownTime";
 import Profile from "../../templates/HomeTemplate/Layout/Profile/Profile";
+import { DIS_LOADING, LOADING } from "../../redux/actions/types/LoadingType";
 const Checkout = () => {
   const navigate = useNavigate();
   const userLogin = useSelector((state) => state.AuthReducer.user);
@@ -92,7 +93,15 @@ const Checkout = () => {
           className="backHome"
           style={{ width: 160, height: 60, cursor: "pointer" }}
           onClick={() => {
+            dispatch({
+              type: LOADING,
+            });
             navigate("/");
+            setTimeout(() => {
+              dispatch({
+                type: DIS_LOADING,
+              });
+            }, [2000]);
           }}
         >
           <img

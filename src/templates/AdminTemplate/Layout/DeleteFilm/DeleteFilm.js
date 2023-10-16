@@ -35,6 +35,7 @@ import {
 } from "../../../../services/MangerFilmServices";
 import { toast } from "react-toastify";
 import _ from "lodash";
+import { LOADING } from "../../../../redux/actions/types/LoadingType";
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 const normFile = (e) => {
@@ -83,8 +84,9 @@ const DeleteFilm = () => {
     },
 
     onSubmit: async (value) => {
-      //   console.log(value);
-      console.log(value);
+      await dispatch({
+        type: LOADING,
+      });
       const res = await deletePhim(maPhim);
       if (res && res.statusCode === 200) {
         console.log(res);
@@ -123,6 +125,7 @@ const DeleteFilm = () => {
     <>
       <h1 className="text-center text-3xl mb-2">Bạn có chắc muốn xoá Film:</h1>
       <Form
+        onFinish={formik.handleSubmit}
         disabled
         labelCol={{
           span: 4,
@@ -253,12 +256,7 @@ const DeleteFilm = () => {
           )}
         </Form.Item>
         <Form.Item label="Button">
-          <Button
-            size="large"
-            disabled={false}
-            onClick={formik.handleSubmit}
-            type="submit"
-          >
+          <Button size="large" disabled={false} htmlType="submit">
             Delete
           </Button>
         </Form.Item>
