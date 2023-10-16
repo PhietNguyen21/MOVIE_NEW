@@ -34,7 +34,7 @@ export const getListFilmAction = (tenPhim) => {
         dispatch({
           type: DIS_LOADING,
         });
-      }, []);
+      }, [1000]);
     } catch (error) {
       console.log("err", error);
     }
