@@ -113,7 +113,7 @@ const Checkout = () => {
           if (+index === 0) {
             // console.log("vao`");
             content = {
-              label: item,
+              label: <p className="">{item}</p>,
               key: id,
               children: (
                 <>

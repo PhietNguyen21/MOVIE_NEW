@@ -35,7 +35,9 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    dispatch({
+      type: LOADING,
+    });
     const res = await postLogin(edit.taiKhoan, edit.matKhau);
     if (res.statusCode === 200) {
       dispatch({
@@ -45,9 +47,6 @@ const Login = () => {
       });
 
       if (location && location?.state?.isRegister) {
-        dispatch({
-          type: LOADING,
-        });
         navigate(-1);
         navigate(-1);
         if (isLoading === true) {

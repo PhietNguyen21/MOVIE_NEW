@@ -8,7 +8,7 @@
 
 .slick-prev:before {
     position: absolute;
-    left: -120%;
+    left: -100%;
 }
 
 .item-width {

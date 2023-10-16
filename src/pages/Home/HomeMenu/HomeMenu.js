@@ -24,7 +24,7 @@ const HomeMenu = (props) => {
   return (
     <>
       <Tabs
-        className="TabNoRes"
+        className="TabNoRes px-4"
         tabPosition={"left"}
         items={heThongRapChieu?.map((item, key) => {
           const id = String(key + 1);

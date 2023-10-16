@@ -18,6 +18,7 @@ import data from "../assets/dataRate.json";
 import { Spin } from "antd";
 import { UP_COMMENT } from "../redux/actions/types/AuthType";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { LOADING } from "../redux/actions/types/LoadingType";
 
 const Details = () => {
   const [loading, setLoading] = useState(true);
@@ -222,6 +223,11 @@ const Details = () => {
                                                 key={index}
                                               >
                                                 <NavLink
+                                                  onClick={() => {
+                                                    dispatch({
+                                                      type: LOADING,
+                                                    });
+                                                  }}
                                                   className={`${contentStyle["item-hour"]}`}
                                                   to={`/checkout/${lich.maLichChieu}`}
                                                 >
@@ -283,7 +289,7 @@ const Details = () => {
                       <div className="p-10">
                         <div className="bg-white max-w-xl rounded-2xl px-10 py-8 shadow-lg hover:shadow-2xl transition duration-500">
                           <div className="w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center font-bold text-white">
-                            {user.hoTen.slice(0, 1)}
+                            {user?.hoTen?.slice(0, 1)}
                           </div>
                           <div className="mt-4">
                             <h1 className="text-lg text-gray-700 font-semibold hover:underline cursor-pointer">
@@ -348,7 +354,7 @@ const Details = () => {
                                             }}
                                           >
                                             {" "}
-                                            {item.hoTen.slice(0, 1)}
+                                            {item?.hoTen?.slice(0, 1)}
                                           </span>
                                         </div>
                                       </div>

@@ -21,7 +21,15 @@ const Profile = ({ onClose }) => {
       label: (
         <p
           onClick={() => {
+            dispatch({
+              type: LOADING,
+            });
             navigate("/taikhoan");
+            setTimeout(() => {
+              dispatch({
+                type: DIS_LOADING,
+              });
+            }, [1000]);
           }}
         >
           {t("thongTinTk")}
@@ -34,10 +42,18 @@ const Profile = ({ onClose }) => {
       label: (
         <p
           onClick={async () => {
+            dispatch({
+              type: LOADING,
+            });
             navigate("/");
             await dispatch({
               type: DANG_XUAT,
             });
+            setTimeout(() => {
+              dispatch({
+                type: DIS_LOADING,
+              });
+            }, [1000]);
           }}
         >
           {t("Dangxuat")}
@@ -59,8 +75,16 @@ const Profile = ({ onClose }) => {
       >
         <span
           onClick={() => {
+            dispatch({
+              type: LOADING,
+            });
             navigate("/taiKhoan");
             // onClose();
+            setTimeout(() => {
+              dispatch({
+                type: DIS_LOADING,
+              });
+            }, [1000]);
           }}
           className="font-bold"
           style={{

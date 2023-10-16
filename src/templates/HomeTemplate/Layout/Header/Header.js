@@ -19,7 +19,10 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { USER_LOGIN } from "../../../../types/configType";
-import { DIS_LOADING } from "../../../../redux/actions/types/LoadingType";
+import {
+  DIS_LOADING,
+  LOADING,
+} from "../../../../redux/actions/types/LoadingType";
 
 const Header = () => {
   const [activeNav, setActiveNav] = useState(0);
@@ -53,7 +56,7 @@ const Header = () => {
             onClick={() => {
               navigate("/user/login");
             }}
-            className="self-center px-8 py-3 rounded"
+            className="self-center dark:bg-gray-900 px-8 py-3 rounded"
           >
             {t("Sign in")}
           </button>
@@ -116,7 +119,7 @@ const Header = () => {
       value: <></>,
     },
     {
-      label: <NavLink>{t("header.News")}</NavLink>,
+      label: <a href="#news">{t("header.News")}</a>,
       value: <></>,
     },
     {
@@ -145,11 +148,24 @@ const Header = () => {
           <div className="logo">
             <img
               onClick={() => {
+                dispatch({
+                  type: LOADING,
+                });
                 navigate("/");
+                setTimeout(() => {
+                  dispatch({
+                    type: DIS_LOADING,
+                  });
+                }, [1000]);
               }}
               src="./image/logoTixLoading.png"
               alt=""
-              style={{ width: "85px", height: "75px", marginLeft: 10 }}
+              style={{
+                cursor: "pointer",
+                width: "85px",
+                height: "75px",
+                marginLeft: 10,
+              }}
             />
           </div>
           <ul className="listNav" id="listNav">
@@ -216,8 +232,16 @@ const Header = () => {
           >
             <p
               onClick={() => {
+                dispatch({
+                  type: LOADING,
+                });
                 onClose();
                 navigate("/");
+                setTimeout(() => {
+                  dispatch({
+                    type: DIS_LOADING,
+                  });
+                }, [1000]);
               }}
               className="pl-6"
             >
@@ -227,8 +251,16 @@ const Header = () => {
           </div>
           <div
             onClick={() => {
+              dispatch({
+                type: LOADING,
+              });
               onClose();
               navigate("/contact");
+              setTimeout(() => {
+                dispatch({
+                  type: DIS_LOADING,
+                });
+              }, [1000]);
             }}
             className="item-hamber cursor-pointer text-xl"
           >
@@ -236,21 +268,37 @@ const Header = () => {
           </div>
           <div
             onClick={() => {
+              dispatch({
+                type: LOADING,
+              });
               onClose();
               navigate("/news");
+              setTimeout(() => {
+                dispatch({
+                  type: DIS_LOADING,
+                });
+              }, [1000]);
             }}
             className="item-hamber cursor-pointer text-xl"
           >
             <p className="pl-6">{t("header.News")}</p>
           </div>
-          {!_.isEmpty(USER_LOGIN) ? (
+          {localStorage.getItem(USER_LOGIN) ? (
             <div
               onClick={() => {
+                dispatch({
+                  type: LOADING,
+                });
                 dispatch({
                   type: DANG_XUAT,
                 });
                 navigate("/");
                 onClose();
+                setTimeout(() => {
+                  dispatch({
+                    type: DIS_LOADING,
+                  });
+                }, [1000]);
               }}
               className="item-hamber cursor-pointer text-xl"
             >

@@ -17,7 +17,7 @@
         display: flex;
         .listNav {
             position: absolute;
-            top: 50%;
+            top: 59%;
             left: 50%;
             transform: translate(-50%, -50%);
             display: flex;
@@ -35,7 +35,7 @@
                 }
                 &:hover {
                     a {
-                        color: white;
+                        color: black;
                     }
                 }
             }
@@ -54,6 +54,7 @@
             align-items: center;
             svg {
                 margin-left: 4px;
+                color: black;
             }
         }
 

@@ -99,6 +99,9 @@ const KetQuaCheckOut = (props) => {
               label: (
                 <div
                   onClick={() => {
+                    dispatch({
+                      type: LOADING,
+                    });
                     navigate(-1);
                   }}
                 >
@@ -226,7 +229,10 @@ const KetQuaCheckOut = (props) => {
                           </div>
                         </>
                       ) : (
-                        <div className="text-center text-green-500 text-2xl font-bold">
+                        <div
+                          className="text-center text-green-500 text-2xl font-bold"
+                          style={{ height: "100vh" }}
+                        >
                           Loading...
                         </div>
                       )}
