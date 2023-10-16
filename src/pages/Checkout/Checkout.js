@@ -54,7 +54,7 @@ const Checkout = () => {
   const { thongTinPhim, danhSachGhe } = heThongPhongVe;
   // console.log("HE THONG PHONG VE", heThongPhongVe);
   const { isLoading } = useSelector((state) => state.LoadingReducer);
-  // console.log(thongTinPhim);
+  console.log({ thongTinPhim });
   // console.log("DANG CHON", danhSachVeDangDat);
 
   // LICH SU DAT VE thongTinNguoiDung
@@ -211,7 +211,7 @@ const Checkout = () => {
                               Lịch chiếu : {thongTinPhim.ngayChieu}
                             </p>
                             <p className="gioChieu">
-                              Giờ chiếu : {thongTinPhim.gioChieu}
+                              Giờ chiếu : {thongTinPhim.gioChieu} PM
                             </p>
                           </div>
                           <div className="flex justify-between border-b-2 border-gray-400 py-3">
@@ -338,7 +338,7 @@ const Checkout = () => {
                 <>
                   {/* INFO USER  */}
 
-                  <KetQuaCheckOut />
+                  <KetQuaCheckOut thongTinPhim={thongTinPhim} />
                 </>
               ),
             };

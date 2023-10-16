@@ -10,8 +10,8 @@ import { Tabs } from "antd";
 import CountdownTime from "./CoundownTime";
 import Profile from "../../templates/HomeTemplate/Layout/Profile/Profile";
 import InfiniteScroll from "react-infinite-scroll-component";
-// const count = 1;
-const KetQuaCheckOut = () => {
+
+const KetQuaCheckOut = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { thongTinNguoiDung } = useSelector(
@@ -149,6 +149,7 @@ const KetQuaCheckOut = () => {
                               <div className="flex flex-wrap -m-2">
                                 {thongTinNguoiDung.thongTinDatVe?.map(
                                   (ticket, index) => {
+                                    console.log({ ticket });
                                     return (
                                       <div
                                         key={index}
@@ -165,15 +166,19 @@ const KetQuaCheckOut = () => {
                                               {ticket.tenPhim}
                                             </h2>
                                             <p className="ngayGio text-white font-bold">
-                                              Giờ chiếu :{" "}
-                                              {moment(ticket.ngayDat).format(
-                                                "hh:mm A"
-                                              )}
-                                              {" | "}
-                                              Ngày chiếu :{" "}
+                                              Ngày đặt :{" "}
                                               {moment(ticket.ngayDat).format(
                                                 "DD-MM-YYYY"
                                               )}
+                                              {" | "}
+                                              Giờ đặt :{" "}
+                                              {moment(ticket.ngayDat).format(
+                                                "hh:mm A"
+                                              )}
+                                            </p>
+                                            <p className="text-white font-bold">
+                                              Giờ chiếu :{" "}
+                                              {thongTinPhim.gioChieu} PM
                                             </p>
                                             <p className="text-white font-semibold">
                                               Địa điểm :{" "}
@@ -222,7 +227,7 @@ const KetQuaCheckOut = () => {
                         </>
                       ) : (
                         <div className="text-center text-green-500 text-2xl font-bold">
-                          Chua co ve nao
+                          Loading...
                         </div>
                       )}
                     </div>

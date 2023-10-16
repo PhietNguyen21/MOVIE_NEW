@@ -243,7 +243,7 @@ const Header = () => {
           >
             <p className="pl-6">{t("header.News")}</p>
           </div>
-          {_.isEmpty(USER_LOGIN) ? (
+          {!_.isEmpty(USER_LOGIN) ? (
             <div
               onClick={() => {
                 dispatch({
