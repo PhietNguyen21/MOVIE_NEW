@@ -24,12 +24,13 @@ const Profile = ({ onClose }) => {
             dispatch({
               type: LOADING,
             });
+
             navigate("/taikhoan");
             setTimeout(() => {
               dispatch({
                 type: DIS_LOADING,
               });
-            }, [1000]);
+            }, [1500]);
           }}
         >
           {t("thongTinTk")}
@@ -65,6 +66,20 @@ const Profile = ({ onClose }) => {
     <div className="profile flex items-center mr-2">
       <div
         className="cursor-pointer avatart rounded-full "
+        onClick={() => {
+          dispatch({
+            type: LOADING,
+          });
+          navigate("/taiKhoan");
+
+          onClose && onClose();
+
+          setTimeout(() => {
+            dispatch({
+              type: DIS_LOADING,
+            });
+          }, [1500]);
+        }}
         style={{
           position: "relative",
           backgroundColor: "green",
@@ -74,18 +89,6 @@ const Profile = ({ onClose }) => {
         }}
       >
         <span
-          onClick={() => {
-            dispatch({
-              type: LOADING,
-            });
-            navigate("/taiKhoan");
-            // onClose();
-            setTimeout(() => {
-              dispatch({
-                type: DIS_LOADING,
-              });
-            }, [1000]);
-          }}
           className="font-bold"
           style={{
             position: "absolute",

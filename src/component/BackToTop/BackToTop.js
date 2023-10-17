@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import "./BackToTop.scss";
 const BackToTop = () => {
   const [showButton, setShowButton] = useState(false);
   const scollTop = () => {

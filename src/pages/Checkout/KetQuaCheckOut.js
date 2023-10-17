@@ -55,7 +55,7 @@ const KetQuaCheckOut = (props) => {
   const cusTomer = (
     <>
       {!_.isEmpty(userLogin) ? (
-        <div className="s">
+        <div className="mr-2">
           <Profile />
         </div>
       ) : (

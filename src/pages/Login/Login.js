@@ -52,7 +52,11 @@ const Login = () => {
         if (isLoading === true) {
           toast.success("Đăng nhập thành công");
         }
+      } else if (location?.state?.isRegister === false) {
+        navigate(-1);
+        navigate(-1);
       }
+
       navigate(-1);
     } else {
       toast.error(res.content);
@@ -61,6 +65,11 @@ const Login = () => {
       taiKhoan: "",
       matKhau: "",
     });
+    setTimeout(() => {
+      dispatch({
+        type: DIS_LOADING,
+      });
+    }, [1000]);
   };
   return (
     <form onSubmit={handleSubmit} className="lg:w-1/2 xl:max-w-screen-sm">

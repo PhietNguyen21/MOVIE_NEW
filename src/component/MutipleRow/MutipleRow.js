@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { getThongTinLichChieuAction } from "../../redux/actions/CinemaAction";
-import { Cascader, Select } from "antd";
+import { Cascader, Empty, Select } from "antd";
 import _, { pick } from "lodash";
 import { useState } from "react";
 import {
@@ -22,6 +22,7 @@ import { list } from "postcss";
 import { GET_LICH_CHIEU } from "../../redux/actions/types/CinemaType";
 import { useFormik } from "formik";
 import "./MuitipleRow.scss";
+import { DIS_LOADING, LOADING } from "../../redux/actions/types/LoadingType";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -246,14 +247,11 @@ const MultipleRows = (props) => {
   };
 
   const onchangeLichChieu = (value) => {
-    // console.log(value);
-
     let item = cumRapCurrent?.lichChieuPhim?.find(
       (lich) => lich.maLichChieu === value
     );
     if (item !== undefined) {
       setLichCurrent(item);
-      // console.log("LICH CURRENT", item);
     }
   };
 
@@ -280,7 +278,14 @@ const MultipleRows = (props) => {
       };
     }
     return {
-      label: <>NO DATA</>,
+      label: (
+        <div className="flex items-start justify-center">
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            style={{ height: "20px", transform: "translateY(-20px)" }}
+          />
+        </div>
+      ),
     };
   };
   return (
@@ -358,17 +363,30 @@ const MultipleRows = (props) => {
           optionLabelProp="label"
         />
       </div>
-      <button
-        onClick={() => {
-          nagivate(`/checkout/${lichCurrent?.maLichChieu}`);
-        }}
-        style={{ width: "15%" }}
-        disabled={suatChieuCurrent === "" ? true : false}
-        className={`${styleContent["btn-muaVe"]} ${styleContent["btn-muaVes"]}
+      {suatChieuCurrent === "" ? (
+        <button
+          disabled={true}
+          style={{ width: "15%" }}
+          className={`${styleContent["btn-muaVe"]} ${styleContent["btn-muaVes"]} ${styleContent["btn-muaVeDis"]} }
             `}
-      >
-        Mua vé ngay
-      </button>
+        >
+          Mua vé ngay
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            dispatch({
+              type: LOADING,
+            });
+            nagivate(`/checkout/${lichCurrent?.maLichChieu}`);
+          }}
+          style={{ width: "15%" }}
+          className={`${styleContent["btn-muaVe"]} ${styleContent["btn-muaVes"]}
+            `}
+        >
+          Mua vé ngay
+        </button>
+      )}
       <div
         className="listBtn text-center "
         style={{ transform: `translateY(-50%)` }}

@@ -15,9 +15,17 @@ import { useFormik } from "formik";
 import { values } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { postThemNguoiDungAction } from "../../../../../../redux/actions/AuthAction";
+import {
+  getTimKiemNguoiDungAction,
+  getTimKiemNguoiDungPhanTrangAction,
+  postThemNguoiDungAction,
+} from "../../../../../../redux/actions/AuthAction";
 import { GP00 } from "../../../../../../types/configType";
-import { postCapNhapThongTinNguoiDung } from "../../../../../../services/AuthServices";
+import {
+  getTimKiemNguoiDung,
+  getTimKiemNguoiDungPhanTrang,
+  postCapNhapThongTinNguoiDung,
+} from "../../../../../../services/AuthServices";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { useEffect } from "react";
@@ -86,7 +94,7 @@ const EditUser = ({ user }) => {
         );
         if (res && res.statusCode === 200) {
           navigate("/admin/listUser");
-          await toast.success("Cap nhat thanh cong");
+          await toast.success("Cập nhật thành công");
         } else {
           toast.error(res.content);
         }

@@ -15,6 +15,8 @@ import {
 import { Layout, Menu, Button, theme } from "antd";
 import { useState } from "react";
 import Profile from "../HomeTemplate/Layout/Profile/Profile";
+import { useDispatch } from "react-redux";
+import { DIS_LOADING, LOADING } from "../../redux/actions/types/LoadingType";
 
 const { Header, Sider, Content } = Layout;
 
@@ -27,6 +29,7 @@ const App = () => {
 
   const [auth, setAuth] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // SCROLL khi navigate
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -69,6 +72,7 @@ const App = () => {
     getItem(
       <div
         onClick={() => {
+          buttonColappsed.current.click();
           navigate("/admin");
         }}
       >
@@ -83,7 +87,15 @@ const App = () => {
         <div
           onClick={() => {
             buttonColappsed.current.click();
+            dispatch({
+              type: LOADING,
+            });
             navigate("/admin/filmAdmin");
+            setTimeout(() => {
+              dispatch({
+                type: DIS_LOADING,
+              });
+            }, [1000]);
           }}
         >
           List Film
@@ -93,8 +105,9 @@ const App = () => {
       getItem(
         <div
           onClick={() => {
-            navigate("/admin/addnew");
             buttonColappsed.current.click();
+
+            navigate("/admin/addnew");
           }}
         >
           Add Film
@@ -106,8 +119,16 @@ const App = () => {
       getItem(
         <div
           onClick={() => {
-            navigate("/admin/listUser");
+            dispatch({
+              type: LOADING,
+            });
             buttonColappsed.current.click();
+            navigate("/admin/listUser");
+            setTimeout(() => {
+              dispatch({
+                type: DIS_LOADING,
+              });
+            }, [1000]);
           }}
         >
           List User
@@ -137,6 +158,9 @@ const App = () => {
         <div
           className="text-white text-2xl ml-2 cursor-pointer"
           onClick={() => {
+            dispatch({
+              type: LOADING,
+            });
             navigate("/");
           }}
         >

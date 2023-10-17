@@ -124,3 +124,14 @@ export const putCapNhatThongTinNguoiDung = (
     }
   );
 };
+
+export const getTimKiemNguoiDungPhanTrang = (
+  maNhom,
+  tuKhoa,
+  soTrang,
+  soPhanTuTrenTrang
+) => {
+  return axios.get(
+    `https://movieapi.cyberlearn.vn/api/QuanLyNguoiDung/TimKiemNguoiDungPhanTrang?MaNhom=${maNhom}&tuKhoa=${tuKhoa}&soTrang=${soTrang}&soPhanTuTrenTrang=${soPhanTuTrenTrang}`
+  );
+};

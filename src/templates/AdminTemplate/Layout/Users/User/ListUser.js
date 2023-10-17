@@ -5,13 +5,19 @@ import { useEffect } from "react";
 import {
   getDanhSachNguoiDungAction,
   getTimKiemNguoiDungAction,
+  getTimKiemNguoiDungPhanTrangAction,
 } from "../../../../../redux/actions/AuthAction";
 import { Fragment } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { USER_CURRENT } from "../../../../../redux/actions/types/AuthType";
+import {
+  CURRENT_PAGE_SEARCH,
+  USER_CURRENT,
+} from "../../../../../redux/actions/types/AuthType";
 import Search from "antd/lib/input/Search";
 import { SearchOutlined } from "@ant-design/icons";
 import { useState } from "react";
+import { GP00 } from "../../../../../types/configType";
+import { getTimKiemNguoiDungPhanTrang } from "../../../../../services/AuthServices";
 const ListUser = () => {
   const { lstUser } = useSelector((state) => state.AuthReducer);
   //Phân trang hiện tại
@@ -122,20 +128,18 @@ const ListUser = () => {
 
   const handlePagination = (page) => {
     setCurrentPage(page);
-
-    // Perform any other action here
   };
 
-  // const customPagination = {
-  //   showSizeChanger: false,
-  //   defaultCurrent: 1,
-  //   current: currentPage,
-  //   pageSize: 10, // set the page size as per your requirement
-  //   total: lstUser.length, // set the total count of your data
-  //   onChange: handlePagination, // handle page change event
-  // };
   const onSearch = async (value) => {
+    console.log(value);
     await dispatch(getTimKiemNguoiDungAction(value));
+    const res = await getTimKiemNguoiDungPhanTrang(GP00, value, 1, 10);
+
+    if (res && res.statusCode === 200) {
+      setCurrentPage(res.content.currentPage);
+    } else {
+      console.log("Loi", res);
+    }
   };
   return (
     <Fragment>

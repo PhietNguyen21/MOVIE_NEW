@@ -1,12 +1,14 @@
 import {
   getDanhSachNguoiDung,
   getTimKiemNguoiDung,
+  getTimKiemNguoiDungPhanTrang,
   postLogin,
   postRegister,
   postThemNguoiDung,
   postThongTinTaiKhoan,
 } from "../../services/AuthServices";
 import {
+  CURRENT_PAGE_SEARCH,
   DANG_NHAP_THANH_CONG,
   DANG_NHAP_THAT_BAI,
   LAY_DANH_SACH_USER,
@@ -164,6 +166,34 @@ export const postThongTinTaiKhoanAction = () => {
         });
       } else {
         console.log("LOI", res);
+      }
+    } catch (error) {
+      console.log("ERR", error);
+    }
+  };
+};
+
+export const getTimKiemNguoiDungPhanTrangAction = (
+  maNhom,
+  tuKhoa,
+  soTrang,
+  soPhanTuTrenTrang
+) => {
+  return async (dispatch) => {
+    try {
+      const res = await getTimKiemNguoiDungPhanTrang(
+        maNhom,
+        tuKhoa,
+        soTrang,
+        soPhanTuTrenTrang
+      );
+      if (res && res.statusCode === 200) {
+        dispatch({
+          type: CURRENT_PAGE_SEARCH,
+          data: res.content,
+        });
+      } else {
+        console.log("Loi", res);
       }
     } catch (error) {
       console.log("ERR", error);

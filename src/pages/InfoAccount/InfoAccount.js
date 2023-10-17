@@ -21,6 +21,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import "./InfoAccount.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { DIS_LOADING, LOADING } from "../../redux/actions/types/LoadingType";
 const InfoAccount = () => {
   const [activeClick, setActiveClick] = useState(0);
   const dispatch = useDispatch();
@@ -308,6 +309,9 @@ const InfoAccount = () => {
                             </div>
                             <div
                               onClick={async () => {
+                                dispatch({
+                                  type: LOADING,
+                                });
                                 try {
                                   const res = await getListCinema(
                                     item.danhSachGhe[0].maHeThongRap
@@ -345,6 +349,11 @@ const InfoAccount = () => {
                                 } catch (error) {
                                   console.log("ERR", error);
                                 }
+                                // setTimeout(() => {
+                                //   dispatch({
+                                //     type: DIS_LOADING,
+                                //   });
+                                // }, [1000]);
                               }}
                               className="cursor-pointer text-blue-700 font-bold underline text-right"
                             >
@@ -427,7 +436,11 @@ const InfoAccount = () => {
           {formik.values.loaiNguoiDung === "QuanTri" ? (
             <div className="text-2xl font-bold shadow-slate-800 mb-2">
               <button
-                className="btn btn-primary rounded-xl w-full"
+                style={{
+                  boxShadow: ` 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12)`,
+                  backgroundColor: "#3f51b5",
+                }}
+                className="btn btn-primary rounded-3xl w-full"
                 onClick={() => {
                   navigate("/admin");
                 }}
@@ -438,31 +451,45 @@ const InfoAccount = () => {
           ) : (
             ""
           )}
-          <table className="table-auto border-2 border-green-500 rounded-2xl w-full font-semibold ">
+          <table className="border-collapse w-full">
             <thead>
               <tr>
-                <th>Hoạt động</th>
-                <></>
+                <th className="bg-green-500 text-white text-left py-3 px-4 font-semibold uppercase border border-green-600">
+                  Hoạt động
+                </th>
+                <th className="bg-green-500 text-white text-center py-3 px-4 font-semibold uppercase border border-green-600">
+                  Số lượng
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Bình luận </td>
-                <td className="text-center">0</td>
+              <tr className="bg-gray-100">
+                <td className="border border-green-500 py-3 px-4">Bình luận</td>
+                <td className="border border-green-500 text-center py-3 px-4">
+                  0
+                </td>
               </tr>
-              <tr>
-                <td>Bình luận được yêu thích</td>
-                <td className="text-center">0</td>
+              <tr className="bg-gray-200">
+                <td className="border border-green-500 py-3 px-4">
+                  Bình luận được yêu thích
+                </td>
+                <td className="border border-green-500 text-center py-3 px-4">
+                  0
+                </td>
               </tr>
-              <tr>
-                <td>Só vé đã đặt</td>
-                <td className="text-center">
+              <tr className="bg-gray-100">
+                <td className="border border-green-500 py-3 px-4">
+                  Số vé đã đặt
+                </td>
+                <td className="border border-green-500 text-center py-3 px-4">
                   {arrConcat.length > 0 ? arrConcat.length : 0}
                 </td>
               </tr>
-              <tr>
-                <td>Tổng tiền</td>
-                <td className="text-center ">{getTotalMoney()} VND</td>
+              <tr className="bg-gray-200">
+                <td className="border border-green-500 py-3 px-4">Tổng tiền</td>
+                <td className="border border-green-500 text-center py-3 px-4">
+                  {getTotalMoney()} VND
+                </td>
               </tr>
             </tbody>
           </table>

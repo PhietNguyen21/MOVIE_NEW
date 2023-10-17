@@ -25,7 +25,7 @@ import {
 } from "../../../../redux/actions/types/LoadingType";
 
 const Header = () => {
-  const [activeNav, setActiveNav] = useState(0);
+  // const [activeNav, setActiveNav] = useState(1);
   const navigate = useNavigate();
   const headerRef = useRef(null);
   // DRAWER
@@ -111,11 +111,35 @@ const Header = () => {
   ];
   const dataNav = [
     {
-      label: <NavLink to="/">{t("header.Home")}</NavLink>,
+      label: (
+        <a
+          onClick={async () => {
+            dispatch({
+              type: LOADING,
+            });
+            await navigate("/");
+            setTimeout(() => {
+              dispatch({
+                type: DIS_LOADING,
+              });
+            }, [1500]);
+          }}
+        >
+          {t("header.Home")}
+        </a>
+      ),
       value: <></>,
     },
     {
-      label: <NavLink to="/contact">{t("header.Contact")}</NavLink>,
+      label: (
+        <a
+          onClick={() => {
+            navigate("/contact");
+          }}
+        >
+          {t("header.Contact")}
+        </a>
+      ),
       value: <></>,
     },
     {
@@ -171,15 +195,7 @@ const Header = () => {
           <ul className="listNav" id="listNav">
             {dataNav.slice(0, 3).map((item, index) => {
               return (
-                <li
-                  key={index}
-                  className={
-                    activeNav === index ? "item-nav active" : "item-nav"
-                  }
-                  onClick={() => {
-                    setActiveNav(index);
-                  }}
-                >
+                <li key={index} className={"item-nav"}>
                   {item.label}
                 </li>
               );

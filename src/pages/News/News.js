@@ -30,7 +30,7 @@ const News = () => {
     });
   };
   return (
-    <div className="News pt-24">
+    <div className="News pt-24" id="news">
       <div
         className="news-content"
         style={{

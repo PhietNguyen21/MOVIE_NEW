@@ -31,7 +31,7 @@ const AddNewUser = () => {
       matKhau: "",
       email: "",
       soDt: "",
-      maNhom: "",
+      maNhom: GP00,
       maLoaiNguoiDung: "",
       hoTen: "",
     },
@@ -66,7 +66,7 @@ const AddNewUser = () => {
           value.matKhau,
           value.email,
           value.soDt,
-          GP00,
+          value.maNhom,
           value.maLoaiNguoiDung,
           value.hoTen
         )

@@ -28,6 +28,8 @@ import AddNewUser from "./templates/AdminTemplate/Layout/Users/User/AddNewUser/A
 import EditUser from "./templates/AdminTemplate/Layout/Users/User/EditUser/EditUser";
 import DeleteUser from "./templates/AdminTemplate/Layout/Users/DeleteUser/DeleteUser";
 import InfoAccount from "./pages/InfoAccount/InfoAccount";
+import { useDispatch } from "react-redux";
+import { LOADING } from "./redux/actions/types/LoadingType";
 function App() {
   return (
     <div className="App">

@@ -140,9 +140,14 @@ const Register = () => {
                   name="taiKhoan"
                   value={formik.values.taiKhoan}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   placeholder="Nhập tên tài khoản"
                 />
-                <div className="text-red-900">{formik.errors.taiKhoan}</div>
+                {formik.touched.taiKhoan && formik.errors.taiKhoan ? (
+                  <div style={{ color: "red" }}>{formik.errors.taiKhoan}</div>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="mt-6">
                 <div className="flex justify-between items-center">
@@ -156,9 +161,14 @@ const Register = () => {
                   placeholder="Nhập vào mật khẩu"
                   name="matKhau"
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   value={formik.values.matKhau}
                 />
-                <div className="text-red-900">{formik.errors.matKhau}</div>
+                {formik.touched.matKhau && formik.errors.matKhau ? (
+                  <div style={{ color: "red" }}>{formik.errors.matKhau}</div>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="mt-6">
                 <div className="flex justify-between items-center">
@@ -173,9 +183,14 @@ const Register = () => {
                   required
                   name="email"
                   value={formik.values.email}
+                  onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
-                <div className="text-red-900">{formik.errors.email}</div>
+                {formik.touched.email && formik.errors.email ? (
+                  <div style={{ color: "red" }}>{formik.errors.email}</div>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="mt-6">
                 <div className="flex justify-between items-center">
@@ -190,9 +205,14 @@ const Register = () => {
                   required
                   name="soDt"
                   value={formik.values.soDt}
+                  onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
-                <div className="text-red-900">{formik.errors.soDt}</div>
+                {formik.touched.email && formik.errors.email ? (
+                  <div style={{ color: "red" }}>{formik.errors.soDt}</div>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div className="mt-6">
@@ -208,9 +228,14 @@ const Register = () => {
                   required
                   name="hoTen"
                   value={formik.values.hoTen}
+                  onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
-                <div className="text-red-900">{formik.errors.hoTen}</div>
+                {formik.touched.hoTen && formik.errors.hoTen ? (
+                  <div style={{ color: "red" }}>{formik.errors.hoTen}</div>
+                ) : (
+                  ""
+                )}
               </div>
 
               <div className="mt-10">
@@ -226,12 +251,18 @@ const Register = () => {
             </div>
             <div className="mt-8 text-sm font-display font-semibold text-gray-700 text-center">
               Bạn đã có tài khoản rồi ?{" "}
-              <NavLink
-                to="/user/login"
+              <span
+                onClick={() => {
+                  nagivate("/user/login", {
+                    state: {
+                      isRegister: true,
+                    },
+                  });
+                }}
                 className="cursor-pointer text-indigo-600 hover:text-indigo-800"
               >
                 Đăng nhập
-              </NavLink>
+              </span>
             </div>
           </div>
         </div>
