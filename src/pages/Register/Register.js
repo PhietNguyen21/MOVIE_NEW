@@ -208,7 +208,7 @@ const Register = () => {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
-                {formik.touched.email && formik.errors.email ? (
+                {formik.touched.soDt && formik.errors.soDt ? (
                   <div style={{ color: "red" }}>{formik.errors.soDt}</div>
                 ) : (
                   ""

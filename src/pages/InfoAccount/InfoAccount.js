@@ -48,7 +48,8 @@ const InfoAccount = () => {
         thongTinTaiKhoan?.loaiNguoiDung === "Khách hàng"
           ? "KhachHang"
           : "QuanTri",
-      soDT: thongTinTaiKhoan?.soDT,
+      soDT:
+        thongTinTaiKhoan?.soDT === null ? "0355154698" : thongTinTaiKhoan?.soDT,
     },
     validationSchema: Yup.object().shape({
       matKhau: Yup.string()
@@ -379,19 +380,6 @@ const InfoAccount = () => {
         </>
       ),
     },
-
-    // {
-    //   label: (
-    //     <span
-    //       onClick={() => {
-    //         navigate("/admin");
-    //       }}
-    //     >
-    //       <UserOutlined /> TRANG ADMIN
-    //     </span>
-    //   ),
-    //   content: <div>ADMIN</div>,
-    // },
   ];
 
   // LOC LOAI NGUOI DUNG QUAN TRI

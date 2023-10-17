@@ -31,9 +31,6 @@ const ListUser = () => {
   }, []);
 
   const current = useSelector((state) => state.AuthReducer.currentPaginate);
-  // useEffect(() => {
-  //   setCurrentPage(location?.state?.currentPage || 1);
-  // }, [location]);
 
   useEffect(() => {
     setCurrentPage(parseInt(current));

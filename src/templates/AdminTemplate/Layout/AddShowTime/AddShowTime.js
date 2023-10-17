@@ -152,7 +152,7 @@ const AddShowTime = () => {
             onChange={handleChangeHTR}
           />
         </Form.Item>
-        <Form.Item label="Cum rap">
+        <Form.Item label="Cụm rạp">
           <Select
             ref={refSelect}
             placeholder="Chose cum rap"
@@ -161,7 +161,7 @@ const AddShowTime = () => {
           />
         </Form.Item>
 
-        <Form.Item label="Ngay gio chieu">
+        <Form.Item label="Ngày giờ chiếu">
           <DatePicker
             // value={formik.values.ngayChieuGioChieu}
             onChange={handleChangeDate}
@@ -170,7 +170,7 @@ const AddShowTime = () => {
             format="YYYY-MM-DD hh:mm:ss"
           />
         </Form.Item>
-        <Form.Item label="Gia ve">
+        <Form.Item label="Giá vé">
           <InputNumber
             name="giaVe"
             value={formik.values.giaVe}
@@ -181,7 +181,7 @@ const AddShowTime = () => {
             max={150000}
           />
         </Form.Item>
-        <Form.Item label="Chuc nang">
+        <Form.Item label="Chức năng">
           <Button htmlType="submit">Add show time</Button>
         </Form.Item>
       </Form>

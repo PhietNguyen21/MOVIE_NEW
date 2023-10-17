@@ -56,22 +56,7 @@ const Checkout = () => {
   // console.log("HE THONG PHONG VE", heThongPhongVe);
   const { isLoading } = useSelector((state) => state.LoadingReducer);
   console.log({ thongTinPhim });
-  // console.log("DANG CHON", danhSachVeDangDat);
 
-  // LICH SU DAT VE thongTinNguoiDung
-  // console.log("param.id", id);
-
-  // const cusTomize = (
-  //   <>
-  //     {!_.isEmpty(userLogin) ? (
-  //       <div className="s">
-  //         <Profile />
-  //       </div>
-  //     ) : (
-  //       ""
-  //     )}
-  //   </>
-  // );
   const cusTomer = (
     <>
       {!_.isEmpty(userLogin) ? (
@@ -259,7 +244,9 @@ const Checkout = () => {
                           </div>
                           <div className="phone-customer border-b-2 border-gray-400 py-3">
                             <p className="text-white">Phone</p>
-                            <p className="text-white">{userLogin?.soDT}</p>
+                            <p className="text-white">
+                              {userLogin?.soDT || "0355154698"}
+                            </p>
                           </div>
                         </div>
                         <div className="btn-CheckOut">

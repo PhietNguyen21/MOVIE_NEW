@@ -57,8 +57,6 @@ export const ManangerFilmReducer = (state = stateDefault, action) => {
       };
     }
     case FILM_SAP_CHIEU: {
-      // console.log(action);
-      // console.log(state.listFilm);
       const arrList = [...state.arrFilmDefault];
       const arrSapChieu = arrList.filter(
         (phim) => phim.sapChieu === state.sapChieu

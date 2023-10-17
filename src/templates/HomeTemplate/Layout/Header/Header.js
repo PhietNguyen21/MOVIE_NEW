@@ -83,7 +83,7 @@ const Header = () => {
             onClick={() => {
               navigate("/user/login");
             }}
-            className="self-center px-4 py-2 rounded font-semibold dark:bg-violet-400 dark:text-gray-900"
+            className="self-center px-4 py-2 rounded font-semibold bg-violet-400 text-gray-900"
           >
             {t("Sign in")}
           </button>

@@ -96,6 +96,7 @@ const EditFilm = () => {
         type: CURRENT_PAGE_FILM,
         currentPage: pageCurrent,
       });
+
       const res = await postCapNhatPhim(
         value.maPhim,
         value.tenPhim,
@@ -173,7 +174,7 @@ const EditFilm = () => {
         }}
         layout="horizontal"
       >
-        <Form.Item label="Ten Phim">
+        <Form.Item label="Tên Phim">
           <Input
             name="tenPhim"
             onChange={formik.handleChange}
@@ -187,7 +188,7 @@ const EditFilm = () => {
             value={formik.values.trailer}
           />
         </Form.Item>
-        <Form.Item label="Mo ta">
+        <Form.Item label="Mô tả">
           <TextArea
             name="moTa"
             rows={4}
@@ -196,7 +197,7 @@ const EditFilm = () => {
           />
         </Form.Item>
         <Form.Item
-          label="Ngay chieu"
+          label="Ngày chiếu"
           style={{
             cursor: "pointer",
           }}
@@ -212,7 +213,7 @@ const EditFilm = () => {
           />
         </Form.Item>
 
-        <Form.Item label="Dang chieu">
+        <Form.Item label="Đang chiếu">
           <Switch
             name="dangChieu"
             checked={formik.values.dangChieu}
@@ -232,7 +233,7 @@ const EditFilm = () => {
             }}
           />
         </Form.Item>
-        <Form.Item label="Sap chieu" valuePropName="checked">
+        <Form.Item label="Sắp chiếu" valuePropName="checked">
           <Switch
             name="sapChieu"
             checked={formik.values.sapChieu}
@@ -243,7 +244,7 @@ const EditFilm = () => {
           />
         </Form.Item>
 
-        <Form.Item label="So sao">
+        <Form.Item label="Số sao">
           <InputNumber
             value={formik.values.danhGia}
             name="danhGia"
@@ -255,7 +256,7 @@ const EditFilm = () => {
           />
         </Form.Item>
         <Form.Item
-          label="Upload"
+          label="Hình ảnh"
           valuePropName="fileList"
           getValueFromEvent={normFile}
         >
@@ -293,7 +294,7 @@ const EditFilm = () => {
             </div>
           )}
         </Form.Item>
-        <Form.Item label="Button">
+        <Form.Item label="Chức năng">
           <Button onClick={formik.handleSubmit} type="submit">
             Update
           </Button>
