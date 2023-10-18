@@ -88,9 +88,6 @@ const EditFilm = () => {
 
     onSubmit: async (value) => {
       //   console.log(value);
-      dispatch({
-        type: LOADING,
-      });
 
       dispatch({
         type: CURRENT_PAGE_FILM,
@@ -112,6 +109,9 @@ const EditFilm = () => {
       );
 
       if (res && res.statusCode === 200) {
+        dispatch({
+          type: LOADING,
+        });
         navigate("/admin/filmAdmin");
         console.log(res);
         // dispatch(getListFilmAction());

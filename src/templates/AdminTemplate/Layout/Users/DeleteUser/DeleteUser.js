@@ -24,9 +24,7 @@ const DeleteUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch({
-      type: LOADING,
-    });
+
     // console.log(taiKhoan);
     try {
       const res = await deleteXoaNguoiDung(taiKhoan);

@@ -12,6 +12,7 @@ import { Fragment } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "./FilmAdmin.scss";
 import { useState } from "react";
+import { LOADING } from "../../../../redux/actions/types/LoadingType";
 
 const { Search } = Input;
 const suffix = (
@@ -42,9 +43,16 @@ const FilmAdmin = () => {
 
   const onSearch = async (value) => {
     // console.log(value);
-
+    dispatch({
+      type: LOADING,
+    });
     // GOI API LAY DANH SACH PHIM
     await dispatch(getListFilmAction(value));
+    setTimeout(() => {
+      dispatch({
+        type: LOADING,
+      });
+    }, [1000]);
   };
 
   const columns = [

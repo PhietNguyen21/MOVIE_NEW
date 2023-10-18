@@ -82,7 +82,9 @@ export const postDatVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
 
       // NEU CO THONG TIN DAT VE MOI LOAD
     } catch (error) {
-      dispatch(DIS_LOADING);
+      dispatch({
+        type: DIS_LOADING,
+      });
     }
   };
 };
