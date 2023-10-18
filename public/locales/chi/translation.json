@@ -2,11 +2,18 @@
     "header": {
         "Home": "主页",
         "Contact": "接触",
-        "News": "消息"
+        "News": "消息",
+        "UngDung": "应用程序"
     },
     "body": {
         "DangChieu": "电影正在上映",
-        "SapChieu": "电影即将上映"
+        "SapChieu": "电影即将上映",
+        "ChonPhim": "选择电影",
+        "ChonRap": " 选择系统",
+        "ChonCumRap": "选择剧院",
+        "ChonLich": "选择日历",
+        "ChonSuat": "选择费率",
+        "MuaVeNgay": "立即购买门票"
     },
     "thongTinTk": "帐户信息",
     "Dangxuat": "登出",

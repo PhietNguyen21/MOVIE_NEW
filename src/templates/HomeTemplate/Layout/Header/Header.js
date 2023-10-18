@@ -131,19 +131,11 @@ const Header = () => {
       value: <></>,
     },
     {
-      label: (
-        <a
-          onClick={() => {
-            navigate("/contact");
-          }}
-        >
-          {t("header.Contact")}
-        </a>
-      ),
+      label: <a href="#news">{t("header.News")}</a>,
       value: <></>,
     },
     {
-      label: <a href="#news">{t("header.News")}</a>,
+      label: <a href="#ungdung">{t("header.UngDung")}</a>,
       value: <></>,
     },
     {
@@ -195,7 +187,7 @@ const Header = () => {
           <ul className="listNav" id="listNav">
             {dataNav.slice(0, 3).map((item, index) => {
               return (
-                <li key={index} className={"item-nav"}>
+                <li key={index} className={"item-nav font-bold"}>
                   {item.label}
                 </li>
               );
@@ -252,7 +244,7 @@ const Header = () => {
                   type: LOADING,
                 });
                 onClose();
-                navigate("/");
+
                 setTimeout(() => {
                   dispatch({
                     type: DIS_LOADING,
@@ -266,38 +258,20 @@ const Header = () => {
             </p>
           </div>
           <div
-            onClick={() => {
-              dispatch({
-                type: LOADING,
-              });
+            onClick={(e) => {
               onClose();
-              navigate("/contact");
-              setTimeout(() => {
-                dispatch({
-                  type: DIS_LOADING,
-                });
-              }, [1000]);
             }}
             className="item-hamber cursor-pointer text-xl"
           >
-            <p className="pl-6"> {t("header.Contact")}</p>
+            <p className="pl-6"> {t("header.News")}</p>
           </div>
           <div
-            onClick={() => {
-              dispatch({
-                type: LOADING,
-              });
+            onClick={(e) => {
               onClose();
-              navigate("/news");
-              setTimeout(() => {
-                dispatch({
-                  type: DIS_LOADING,
-                });
-              }, [1000]);
             }}
             className="item-hamber cursor-pointer text-xl"
           >
-            <p className="pl-6">{t("header.News")}</p>
+            <p className="pl-6">{t("header.UngDung")}</p>
           </div>
           {localStorage.getItem(USER_LOGIN) ? (
             <div

@@ -71,6 +71,8 @@ const MultipleRows = (props) => {
     (state) => state.ManangerFilmReducer
   );
 
+  // LAY PHIM DANG CHIEU LAN DAU
+
   // Lay lich chieu
 
   const { lichChieu } = useSelector((state) => state.ManagerCinema);
@@ -300,13 +302,13 @@ const MultipleRows = (props) => {
           options={conversListFilm()}
           expandTrigger="hover"
           onChange={onChangeFilm}
-          placeholder="Chọn Phim"
+          placeholder={t("body.ChonPhim")}
         />
 
         <Select
           bordered={false}
           onChange={onChangeHeThongRap}
-          placeholder="Chọn hệ thống rạp"
+          placeholder={t("body.ChonRap")}
           ref={refHtr}
           style={{
             borderRight: "2px solid gray",
@@ -319,7 +321,7 @@ const MultipleRows = (props) => {
         />
 
         <Select
-          placeholder="Chọn cụm rạp"
+          placeholder={t("body.ChonCumRap")}
           bordered={false}
           onChange={onChangeCumRap}
           ref={refCumRap}
@@ -336,7 +338,7 @@ const MultipleRows = (props) => {
         <Select
           bordered={false}
           onChange={onchangeLichChieu}
-          placeholder="Chọn lịch chiếu"
+          placeholder={t("body.ChonLich")}
           ref={refLich}
           style={{
             borderRight: "2px solid gray",
@@ -351,7 +353,7 @@ const MultipleRows = (props) => {
         <Select
           onChange={onchangeSuatChieu}
           bordered={false}
-          placeholder="Chọn suất chiếu"
+          placeholder={t("body.ChonSuat")}
           ref={refSuatChieu}
           style={{
             borderRight: "2px solid gray",
@@ -370,7 +372,7 @@ const MultipleRows = (props) => {
           className={`${styleContent["btn-muaVe"]} ${styleContent["btn-muaVes"]} ${styleContent["btn-muaVeDis"]} }
             `}
         >
-          Mua vé ngay
+          {t("body.MuaVeNgay")}
         </button>
       ) : (
         <button

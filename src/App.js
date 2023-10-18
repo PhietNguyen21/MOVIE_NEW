@@ -2,8 +2,8 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import HomeTemplate from "./templates/HomeTemplate/HomeTemplate";
 import Home from "./pages/Home/Home";
-import Contact from "./pages/Contact/Contact";
 import News from "./pages/News/News";
+import UngDung from "./pages/UngDung/UngDung";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Details from "./Details/Details";
@@ -22,14 +22,16 @@ import AddNew from "./templates/AdminTemplate/Layout/AddNew/AddNew";
 import EditFilm from "./templates/AdminTemplate/Layout/EditFilm/EditFilm";
 import DeleteFilm from "./templates/AdminTemplate/Layout/DeleteFilm/DeleteFilm";
 import AddShowTime from "./templates/AdminTemplate/Layout/AddShowTime/AddShowTime";
-import { User } from "iconsax-react";
+
 import ListUser from "./templates/AdminTemplate/Layout/Users/User/ListUser";
 import AddNewUser from "./templates/AdminTemplate/Layout/Users/User/AddNewUser/AddNewUser";
 import EditUser from "./templates/AdminTemplate/Layout/Users/User/EditUser/EditUser";
 import DeleteUser from "./templates/AdminTemplate/Layout/Users/DeleteUser/DeleteUser";
 import InfoAccount from "./pages/InfoAccount/InfoAccount";
-import { useDispatch } from "react-redux";
-import { LOADING } from "./redux/actions/types/LoadingType";
+import FilmNews from "./pages/News/News/FilmNews/FilmNews";
+import Review from "./pages/News/News/Review/Review";
+import Discount from "./pages/News/News/Discount/Discount";
+
 function App() {
   return (
     <div className="App">
@@ -37,8 +39,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeTemplate />}>
           <Route index element={<Home />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="news" element={<News />} />
+          {/* <Route path="News" element={<News />} /> */}
+
           <Route path="/detail/:id" element={<Details />} />
           <Route path="/taikhoan" element={<InfoAccount />} />
         </Route>
@@ -46,7 +48,11 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
-
+        <Route path="/News" element={<News />}>
+          <Route element={<FilmNews />} index />
+          <Route path="review" element={<Review />} />
+          <Route path="discount" element={<Discount />} />
+        </Route>
         <Route path="/checkout" element={<CheckoutTemplate />}>
           <Route path=":id" element={<Checkout />} />
           <Route path="result" element={<KetQuaCheckOut />} />

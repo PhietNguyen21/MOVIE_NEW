@@ -5,6 +5,7 @@ import { getListFilmAction } from "../../redux/actions/FilmAction";
 import MultipleRows from "../../component/MutipleRow/MutipleRow";
 import { getListCinemaActions } from "../../redux/actions/CinemaAction";
 import HomeCarousel from "../../templates/HomeTemplate/Layout/HomeCarousel/HomeCarousel";
+import UngDung from "../UngDung/UngDung";
 import News from "../News/News";
 
 const Home = () => {
@@ -33,8 +34,11 @@ const Home = () => {
         <div className="lg:mx-36 m-0">
           <HomeMenu heThongRapChieu={heThongRapChieu} />
         </div>
-        <div className="" id="news">
-          <News />
+
+        <News />
+
+        <div className="divUngDung">
+          <UngDung />
         </div>
       </div>
     </>

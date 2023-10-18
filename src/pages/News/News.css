@@ -1,0 +1,22 @@
+#news b:hover {
+    color: crimson;
+}
+
+#news .mobie-phone.active {
+    color: crimson;
+}
+/* tablet smartphone */
+@media only screen and (max-width: 63.9375em) {
+}
+
+/* smartphone */
+@media only screen and (max-width: 46.1875em) {
+    #news .mobie-phone {
+        font-size: 12px;
+        margin-right: 10px !important;
+    }
+}
+
+/* tablet */
+@media only screen and (min-width: 46.1875em) and (max-width: 63.9375em) {
+}

@@ -45,22 +45,22 @@ export const ManangerFilmReducer = (state = stateDefault, action) => {
       };
 
     case FILM_DANG_CHIEU: {
-      // console.log(action);
-      // console.log(state.listFilm);
+      const arrDC = [...state.arrFilmDefault];
+      const arrDangChieu = arrDC.filter((phim) => phim.dangChieu === true);
+      console.log({ arrDangChieu });
       return {
         ...state,
-        listFilm: state.arrFilmDefault.filter(
-          (phim) => phim.dangChieu === state.dangChieu
-        ),
+        listFilm: arrDangChieu,
         dangChieu: true,
         sapChieu: false,
       };
     }
     case FILM_SAP_CHIEU: {
-      const arrList = [...state.arrFilmDefault];
-      const arrSapChieu = arrList.filter(
-        (phim) => phim.sapChieu === state.sapChieu
-      );
+      const arrSC = [...state.arrFilmDefault];
+      console.log({ arrSC });
+      const arrSapChieu = arrSC.filter((phim) => phim.sapChieu === true);
+      console.log({ arrSapChieu });
+      console.log(state.listFilm);
       return {
         ...state,
         listFilm: arrSapChieu,

@@ -9,4 +9,5 @@ html {
 
 .App {
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }

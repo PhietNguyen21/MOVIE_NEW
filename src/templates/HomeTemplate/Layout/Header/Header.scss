@@ -119,12 +119,16 @@
     .hamBerGer {
         position: fixed;
         z-index: 10;
-        top: 3%;
+        top: 5%;
         right: 0;
         margin-right: 10px;
     }
     .item-hamber {
         padding: 10px 0;
+        a:hover {
+            text-decoration: none;
+            color: #fb4226;
+        }
         &:hover {
             background-color: rgba(0, 0, 0, 0.04);
             color: #fb4226;

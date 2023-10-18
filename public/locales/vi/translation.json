@@ -2,11 +2,18 @@
     "header": {
         "Home": "Trang chủ",
         "Contact": "Liên hệ",
-        "News": "Tin tức"
+        "News": "Tin tức",
+        "UngDung": "Ứng dụng"
     },
     "body": {
         "DangChieu": "Phim đang chiếu",
-        "SapChieu": "Phim sắp chiếu"
+        "SapChieu": "Phim sắp chiếu",
+        "ChonPhim": "Chọn phim",
+        "ChonRap": " Chọn rạp",
+        "ChonCumRap": "Chọn cụm rạp",
+        "ChonLich": "Chọn lịch",
+        "ChonSuat": "Chọn suất",
+        "MuaVeNgay": "Mua vé ngay"
     },
     "thongTinTk": "Thông tin tài khoản",
     "Dangxuat": "Đăng xuất",
