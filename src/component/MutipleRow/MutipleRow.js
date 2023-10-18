@@ -395,7 +395,7 @@ const MultipleRows = (props) => {
       >
         <button
           type="button"
-          className={`btn-dangChieu px-8 mr-2 py-3 font-semibold border rounded ${styleContent[activeClassDC]}`}
+          className={`btn-dangChieu px-8 mr-2 py-3 font-semibold border rounded-lg ${styleContent[activeClassDC]}`}
           onClick={() => {
             dispatch({
               type: FILM_DANG_CHIEU,
@@ -407,7 +407,7 @@ const MultipleRows = (props) => {
 
         <button
           type="button"
-          className={`btn-sapChieu px-8 py-3 font-semibold border rounded ${styleContent[activeClassSC]}`}
+          className={`btn-sapChieu px-8 py-3 font-semibold border rounded-lg ${styleContent[activeClassSC]}`}
           onClick={() => {
             dispatch({
               type: FILM_SAP_CHIEU,
@@ -421,11 +421,8 @@ const MultipleRows = (props) => {
         <Slider {...settings}>
           {props.listFilm.slice(0, 40).map((item, index) => {
             return (
-              <div>
-                <div
-                  className={`${styleContent["item-width"]} sss text-right`}
-                  key={index}
-                >
+              <div key={index}>
+                <div className={`${styleContent["item-width"]} sss text-right`}>
                   <Films film={item} />
                 </div>
               </div>

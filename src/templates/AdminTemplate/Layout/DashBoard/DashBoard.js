@@ -96,38 +96,6 @@ const DashBoard = () => {
                   />
                 ))}
               </Pie>
-              {/* <Pie
-                data={data.slice(0, 3)}
-                cx={600}
-                cy={150}
-                labelLine={false}
-                outerRadius={80}
-                fill="#82ca9d"
-                dataKey="Revenue"
-              >
-                {data.slice(0, 3).map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Pie
-                data={data.slice(0, 3)}
-                cx={400}
-                cy={450}
-                labelLine={false}
-                outerRadius={80}
-                fill="#ffc658"
-                dataKey="Orders"
-              >
-                {data.slice(0, 3).map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie> */}
             </PieChart>
           </ResponsiveContainer>
         </div>

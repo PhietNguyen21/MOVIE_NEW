@@ -182,7 +182,11 @@ const InfoAccount = () => {
             >
               <Input
                 name="soDT"
-                value={formik.values.soDT}
+                value={
+                  formik.values.soDT === null
+                    ? "0355154698"
+                    : formik.values.soDT
+                }
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
@@ -370,10 +374,18 @@ const InfoAccount = () => {
               <div className="text-center">
                 <div className=" font-bold text-xl">Chưa có vé nào</div>
 
-                <NavLink to="/" className="text-blue-600 font-bold text-xl">
+                <a
+                  onClick={() => {
+                    dispatch({
+                      type: LOADING,
+                    });
+                    navigate("/");
+                  }}
+                  className="text-blue-600 font-bold text-xl"
+                >
                   {" "}
                   Đặt vé ngay
-                </NavLink>
+                </a>
               </div>
             )}
           </InfiniteScroll>
@@ -430,7 +442,15 @@ const InfoAccount = () => {
                 }}
                 className="btn btn-primary rounded-3xl w-full"
                 onClick={() => {
+                  dispatch({
+                    type: LOADING,
+                  });
                   navigate("/admin");
+                  setTimeout(() => {
+                    dispatch({
+                      type: DIS_LOADING,
+                    });
+                  }, [2000]);
                 }}
               >
                 Tới trang quản trị

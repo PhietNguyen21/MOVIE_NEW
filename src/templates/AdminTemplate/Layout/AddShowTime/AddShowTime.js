@@ -67,6 +67,7 @@ const AddShowTime = () => {
       return {
         label: htr.tenHeThongRap,
         value: htr.maHeThongRap,
+        key: index,
       };
     });
   };
@@ -95,6 +96,7 @@ const AddShowTime = () => {
       return {
         value: cumRap.maCumRap,
         label: cumRap.tenCumRap,
+        key: index,
       };
     });
   };

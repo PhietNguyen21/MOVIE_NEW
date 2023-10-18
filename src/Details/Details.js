@@ -19,6 +19,7 @@ import { Spin } from "antd";
 import { UP_COMMENT } from "../redux/actions/types/AuthType";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { LOADING } from "../redux/actions/types/LoadingType";
+import { Fragment } from "react";
 
 const Details = () => {
   const [loading, setLoading] = useState(true);
@@ -332,11 +333,8 @@ const Details = () => {
                             {/* ARRR REVIEW */}
                             {dataComment.map((item, index) => {
                               return (
-                                <>
-                                  <div
-                                    key={index}
-                                    className="flex justify-between items-center"
-                                  >
+                                <Fragment key={index}>
+                                  <div className="flex justify-between items-center">
                                     <div className="mt-4 flex items-center space-x-4 py-6">
                                       <div>
                                         <div
@@ -371,7 +369,7 @@ const Details = () => {
                                     <Rate allowHalf value={item.rate / 2} />
                                   </div>
                                   <div>{item.binhLuan}</div>
-                                </>
+                                </Fragment>
                               );
                             })}
                           </div>

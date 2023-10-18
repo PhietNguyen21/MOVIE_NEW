@@ -202,6 +202,7 @@ const Header = () => {
                 return {
                   label: item.label,
                   value: item.value,
+                  key: index,
                 };
               })}
             />

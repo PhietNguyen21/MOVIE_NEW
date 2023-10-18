@@ -5,10 +5,12 @@ import moment from "moment/moment";
 import InfiniteScroll from "react-infinite-scroll-component";
 import contentStyle from "./HomeMenu.css.module.css";
 import "./HomeMenu.scss";
+import { useDispatch } from "react-redux";
+import { DIS_LOADING, LOADING } from "../../../redux/actions/types/LoadingType";
 const HomeMenu = (props) => {
   const { heThongRapChieu } = props;
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   return (
     <>
       <Tabs
@@ -263,8 +265,15 @@ const HomeMenu = (props) => {
                                             // );
                                             // console.log(phim);
                                             return (
-                                              <NavLink
-                                                to={`/checkout/${lichChieu.maLichChieu}`}
+                                              <a
+                                                onClick={() => {
+                                                  dispatch({
+                                                    type: LOADING,
+                                                  });
+                                                  navigate(
+                                                    `/checkout/${lichChieu.maLichChieu}`
+                                                  );
+                                                }}
                                                 className={` rounded-lg item-hour ${contentStyle["item-hour"]} `}
                                                 key={index}
                                               >
@@ -280,7 +289,7 @@ const HomeMenu = (props) => {
                                                     lichChieu.ngayChieuGioChieu
                                                   ).format("hh:mm A")}
                                                 </span>
-                                              </NavLink>
+                                              </a>
                                             );
                                           })}
                                       </div>

@@ -22,6 +22,8 @@ function CountdownTime({ param }) {
     return () => clearInterval(interval);
   }, [time]);
 
+  /* Chia lấy dư 255%60=15s 250%60=10s 249%60=09 */
+
   let second = Math.floor(time % 60);
 
   return (
@@ -33,10 +35,10 @@ function CountdownTime({ param }) {
         <p className="text-white text-xl md:text-2xl mr-3">
           Thời gian giữ chỗ{" "}
         </p>
+        {/* Chia lấy phần nguyên vd: 299/60 đc 4 giảm từ từ 3 2 1 */}
         <p>0{Math.floor(time / 60)}: </p>
+
         <p>{second >= 10 ? second : `0${second}`}</p>
-        {/* <button onClick={() => setTimerOn(true)}>Start</button>
-      <button onClick={() => setTimerOn(false)}>Stop</button> */}
       </div>
       <ModalDatLaiVe
         param={param}

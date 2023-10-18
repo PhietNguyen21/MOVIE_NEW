@@ -47,7 +47,9 @@ const News = () => {
 
         {data.map((item, index) => {
           return index === active ? (
-            <div className="text-center">{item.value}</div>
+            <div key={index} className="text-center">
+              {item.value}
+            </div>
           ) : (
             ""
           );

@@ -107,7 +107,7 @@
     text-align: center;
 }
 .table-seat {
-    grid-column: 2/9;
+    grid-column: 3/9;
     /* margin: auto; */
 }
 .table-seat .table-fix tr th {

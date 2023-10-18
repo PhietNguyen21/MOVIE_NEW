@@ -85,8 +85,8 @@ const AddNewUser = () => {
           width: 70,
         }}
       >
-        <Option value="84">+84</Option>
-        <Option value="00">+00</Option>
+        <Select.Option value="84">+84</Select.Option>
+        <Select.Option value="00">+86</Select.Option>
       </Select>
     </Form.Item>
   );

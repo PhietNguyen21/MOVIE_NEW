@@ -205,7 +205,7 @@ const Checkout = () => {
                               Lịch chiếu : {thongTinPhim.ngayChieu}
                             </p>
                             <p className="gioChieu">
-                              Giờ chiếu : {thongTinPhim.gioChieu} PM
+                              Giờ chiếu : {thongTinPhim.gioChieu} AM
                             </p>
                           </div>
                           <div className="flex justify-between border-b-2 border-gray-400 py-3">
