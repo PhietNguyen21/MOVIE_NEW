@@ -386,7 +386,7 @@ const MultipleRows = (props) => {
           className={`${styleContent["btn-muaVe"]} ${styleContent["btn-muaVes"]}
             `}
         >
-          Mua vé ngay
+          {t("body.MuaVeNgay")}
         </button>
       )}
       <div
