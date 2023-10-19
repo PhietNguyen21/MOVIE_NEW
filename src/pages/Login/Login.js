@@ -11,8 +11,10 @@ import { DANG_NHAP_THANH_CONG } from "../../redux/actions/types/AuthType";
 import { toast } from "react-toastify";
 import { postLogin } from "../../services/AuthServices";
 import { DIS_LOADING, LOADING } from "../../redux/actions/types/LoadingType";
+import { Eye, EyeSlash } from "iconsax-react";
 
 const Login = () => {
+  const [showPass, setShowPass] = useState(true);
   const [edit, setEdit] = useState({
     taiKhoan: "",
     matKhau: "",
@@ -152,14 +154,35 @@ const Login = () => {
                   </NavLink>
                 </div>
               </div>
-              <input
-                onChange={handleChange}
-                className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-                type="password"
-                name="matKhau"
-                value={edit.matKhau}
-                placeholder="Nhập vào mật khẩu"
-              />
+              <div style={{ position: "relative" }}>
+                <input
+                  onChange={handleChange}
+                  className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                  type={showPass ? "password" : "text"}
+                  name="matKhau"
+                  value={edit.matKhau}
+                  placeholder="Nhập vào mật khẩu"
+                />
+                <span
+                  onClick={() => {
+                    setShowPass(!showPass);
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    position: "absolute",
+                    top: "50%",
+                    right: "2%",
+                    transform: "translateY(-50%)",
+                  }}
+                >
+                  {" "}
+                  {!showPass ? (
+                    <EyeSlash size="18" color="#555555" />
+                  ) : (
+                    <Eye size="18" color="#555555" />
+                  )}
+                </span>
+              </div>
             </div>
             <div className="mt-10">
               <button

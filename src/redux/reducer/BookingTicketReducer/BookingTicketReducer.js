@@ -14,6 +14,7 @@ const stateDefault = {
   thongTinNguoiDung: {},
   danhSachVeKHDangDat: [{ maGhe: 48857 }, { maGhe: 48858 }],
   countThanhToan: 0,
+  gioChieu: "",
 };
 export const BookingTicketReducer = (state = stateDefault, action) => {
   switch (action.type) {
@@ -45,6 +46,9 @@ export const BookingTicketReducer = (state = stateDefault, action) => {
       return { ...state, danhSachVeDangDat: [] };
     }
 
+    case "LAY_GIO_CHIEU": {
+      return { ...state, gioChieu: action.gioChieu };
+    }
     default:
       return { ...state };
   }

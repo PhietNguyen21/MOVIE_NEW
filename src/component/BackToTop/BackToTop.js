@@ -35,7 +35,7 @@ const BackToTop = () => {
             transform: `rotate(180deg)`,
           }}
         >
-          <img width={75} height={75} src="./image/logoTixLoading.png" alt="" />
+          <img width={75} height={75} src="/image/logoTixLoading.png" alt="" />
         </div>
       )}
     </>

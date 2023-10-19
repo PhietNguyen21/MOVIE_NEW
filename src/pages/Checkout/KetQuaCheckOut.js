@@ -10,6 +10,7 @@ import { Tabs } from "antd";
 import CountdownTime from "./CoundownTime";
 import Profile from "../../templates/HomeTemplate/Layout/Profile/Profile";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { getListCinema } from "../../services/ManagerCinemaService";
 
 const KetQuaCheckOut = (props) => {
   const dispatch = useDispatch();
@@ -37,8 +38,8 @@ const KetQuaCheckOut = (props) => {
   const userLogin = useSelector((state) => state.AuthReducer.user);
   const { soDT } = useSelector((state) => state.AuthReducer);
 
-  // const [sodt, setsoDt] = useState(soDT);
-  // console.log(soDT);
+  // LIST LICH CHIEU RAP
+
   const arrTab = ["01.CHỌN GHẾ & THANH TOÁN", "02.KẾT QUẢ ĐẶT VÉ"];
   const {
     heThongPhongVe,
@@ -51,6 +52,7 @@ const KetQuaCheckOut = (props) => {
 
   const { thongTinPhim, danhSachGhe } = heThongPhongVe;
   // console.log("HE THONG PHONG VE", heThongPhongVe);
+  console.log("ThongTInPhim", thongTinPhim);
 
   const cusTomer = (
     <>
@@ -152,7 +154,6 @@ const KetQuaCheckOut = (props) => {
                               <div className="flex flex-wrap -m-2">
                                 {thongTinNguoiDung.thongTinDatVe?.map(
                                   (ticket, index) => {
-                                    console.log({ ticket });
                                     return (
                                       <div
                                         key={index}
@@ -180,8 +181,13 @@ const KetQuaCheckOut = (props) => {
                                               )}
                                             </p>
                                             <p className="text-white font-bold">
+                                              Ngày chiếu :{" "}
+                                              {moment(ticket.ngayChieu).format(
+                                                "DD-MM-YYYY"
+                                              )}
+                                              {" | "}
                                               Giờ chiếu :{" "}
-                                              {thongTinPhim.gioChieu} PM
+                                              {thongTinPhim.gioChieu} AM
                                             </p>
                                             <p className="text-white font-semibold">
                                               Địa điểm :{" "}

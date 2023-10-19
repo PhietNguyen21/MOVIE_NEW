@@ -31,8 +31,22 @@ import InfoAccount from "./pages/InfoAccount/InfoAccount";
 import FilmNews from "./pages/News/News/FilmNews/FilmNews";
 import Review from "./pages/News/News/Review/Review";
 import Discount from "./pages/News/News/Discount/Discount";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { DIS_LOADING, LOADING } from "./redux/actions/types/LoadingType";
 
 function App() {
+  const dispatch = useDispatch();
+
+  dispatch({
+    type: LOADING,
+  });
+
+  setTimeout(() => {
+    dispatch({
+      type: DIS_LOADING,
+    });
+  }, [1500]);
   return (
     <div className="App">
       <Loading />

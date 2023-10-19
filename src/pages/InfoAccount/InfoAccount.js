@@ -183,7 +183,7 @@ const InfoAccount = () => {
               <Input
                 name="soDT"
                 value={
-                  formik.values.soDT === ""
+                  formik.values.soDT === null
                     ? "0355154698"
                     : formik.values.soDT
                 }

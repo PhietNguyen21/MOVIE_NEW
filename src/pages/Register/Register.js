@@ -8,16 +8,17 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
 import axios from "../../util/axiosCustomize";
-import { REGISTER } from "../../redux/actions/types/AuthType";
+
 import { postRegister } from "../../services/AuthServices";
 import { useFormik } from "formik";
 
 import * as Yup from "yup";
 import { GP00 } from "../../types/configType";
+import { Eye, EyeSlash } from "iconsax-react";
 const Register = () => {
   const dispatch = useDispatch();
   const nagivate = useNavigate();
-
+  const [showPass, setShowPass] = useState(true);
   const formik = useFormik({
     initialValues: {
       taiKhoan: "",
@@ -155,20 +156,42 @@ const Register = () => {
                     Mật khẩu
                   </div>
                 </div>
-                <input
-                  className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-                  type="password"
-                  placeholder="Nhập vào mật khẩu"
-                  name="matKhau"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.matKhau}
-                />
-                {formik.touched.matKhau && formik.errors.matKhau ? (
-                  <div style={{ color: "red" }}>{formik.errors.matKhau}</div>
-                ) : (
-                  ""
-                )}
+                <div style={{ position: "relative" }}>
+                  <input
+                    className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                    type={showPass ? "password" : "text"}
+                    placeholder="Nhập vào mật khẩu"
+                    name="matKhau"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.matKhau}
+                  />
+                  {formik.touched.matKhau && formik.errors.matKhau ? (
+                    <div style={{ color: "red" }}>{formik.errors.matKhau}</div>
+                  ) : (
+                    ""
+                  )}
+
+                  <span
+                    onClick={() => {
+                      setShowPass(!showPass);
+                    }}
+                    style={{
+                      cursor: "pointer",
+                      position: "absolute",
+                      top: "50%",
+                      right: "2%",
+                      transform: "translateY(-50%)",
+                    }}
+                  >
+                    {" "}
+                    {!showPass ? (
+                      <EyeSlash size="18" color="#555555" />
+                    ) : (
+                      <Eye size="18" color="#555555" />
+                    )}
+                  </span>
+                </div>
               </div>
               <div className="mt-6">
                 <div className="flex justify-between items-center">

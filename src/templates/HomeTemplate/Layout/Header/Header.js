@@ -174,7 +174,7 @@ const Header = () => {
                   });
                 }, [1000]);
               }}
-              src="./image/logoTixLoading.png"
+              src="/image/logoTixLoading.png"
               alt=""
               style={{
                 cursor: "pointer",
